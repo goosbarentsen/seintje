@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<title>Seintje — Weet het meteen als je moeder geld overmaakt naar een oplichter</title>
+<title>Seintje — Weet het meteen als je vader of moeder geld overmaakt naar een oplichter</title>
 <meta name="description" content="Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen bij verdachte overboekingen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,6 +233,20 @@
 
   .stat-number{font-family:'Newsreader',serif;font-weight:600;color:var(--pine-deep)}
 
+  /* ---------- sources: quiet footnote-style citations, not marketing ---------- */
+  .sources{margin-top:var(--card-pad);padding-top:var(--para-gap);border-top:1px solid var(--line)}
+  .sources-label{
+    font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:var(--space-2);
+  }
+  .sources-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-1)}
+  .sources-list li{font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .sources-list a{
+    color:var(--pine-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px;
+  }
+  .sources-list a:hover{color:var(--pine)}
+  .sources-list a:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:3px}
+
   /* ---------- how it works: step cards ---------- */
   .steps{display:grid;grid-template-columns:1fr;gap:var(--card-gap);margin-top:var(--space-2)}
   @media (min-width:820px){
@@ -352,7 +366,7 @@
 
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
-  <h1>Krijg direct een seintje als je moeder geld overmaakt naar een oplichter.</h1>
+  <h1>Krijg direct een seintje als je vader of moeder geld overmaakt naar een oplichter.</h1>
   <p class="sub">Oplichters praten ouderen aan de telefoon naar hun spaargeld. Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen zodra er iets ongebruikelijks gebeurt. Zodat één telefoontje van jou de oplichter stopt.</p>
   <a class="cta" href="#aanmelden" id="hero-cta">Zet mij op de wachtlijst</a>
   <p class="micro">Gratis en vrijblijvend. We lanceren binnenkort met een kleine groep families.</p>
@@ -362,13 +376,13 @@
     <div class="label">Het moment dat telt</div>
     <div class="alerts">
       <div class="alert warn">
-        <div class="who"><span class="badge">!</span><span>Op moeders telefoon</span></div>
+        <div class="who"><span class="badge">!</span><span>Op vaders telefoon</span></div>
         <p>Heeft u nu iemand aan de telefoon? Hang eerst op — <strong>uw bank vraagt dit nooit.</strong></p>
       </div>
       <div class="thread" aria-hidden="true"></div>
       <div class="alert">
         <div class="who"><span class="badge">✓</span><span>Op jouw telefoon</span></div>
-        <p>Ongebruikelijke overboeking bij je moeder gesignaleerd. <strong>Bel haar nu even.</strong></p>
+        <p>Ongebruikelijke overboeking bij je vader gesignaleerd. <strong>Bel hem nu even.</strong></p>
       </div>
     </div>
     <p class="foot">Oplichting werkt alleen zolang het slachtoffer alleen is. Jouw stem breekt de betovering.</p>
@@ -380,13 +394,23 @@
   <div class="panel">
     <span class="eyebrow">Waarom dit nodig is</span>
     <h2>Het overkomt de slimste mensen. Ook jouw ouders.</h2>
-    <p>Vorig jaar maakten oplichters <span class="stat-number">bijna €26 miljoen</span> buit met nep-telefoontjes "van de bank". De trucs worden met AI zó overtuigend dat zelfs oplettende mensen erin trappen.</p>
+    <p>Vorig jaar maakten oplichters <span class="stat-number">€25,8 miljoen</span> buit met nep-telefoontjes "van de bank". De trucs worden met AI zó overtuigend dat zelfs oplettende mensen erin trappen.</p>
     <div class="chip-row">
       <span class="chip">Een echte kloon van de bankstem</span>
       <span class="chip">Jouw gegevens uit een datalek</span>
       <span class="chip">Een "veilige rekening" die dat niet is</span>
     </div>
     <p>En het pijnlijkste? De meeste slachtoffers vertellen het uit schaamte aan niemand. Kinderen ontdekken het pas weken later — als het spaargeld weg is en terughalen niet meer kan.</p>
+
+    <div class="sources">
+      <p class="sources-label">De cijfers, onderbouwd</p>
+      <ul class="sources-list">
+        <li><a href="https://www.betaalvereniging.nl/actueel/banken-social-media-fraude-oplichting/" target="_blank" rel="noopener">Nederlandse Vereniging van Banken</a> — bankhelpdeskfraude: €25,8 miljoen schade in 2025</li>
+        <li><a href="https://opgelicht.avrotros.nl/nieuws/de-nederlandsche-bank-meldt-bankfraude-in-drie-jaar-tijd-verdubbeld-in-2025-voor-148-miljoen-schade-20401" target="_blank" rel="noopener">De Nederlandsche Bank</a> — totale bankfraude: circa €148 miljoen schade, ±658.000 meldingen in 2025</li>
+        <li><a href="https://nos.nl/artikel/2612280-bankhelpdeskfraude-meer-geld-afgetroggeld-wel-minder-slachtoffers" target="_blank" rel="noopener">NOS</a> — bijna 5.900 slachtoffers; na één betaling geldt: je bent gewaarschuwd</li>
+        <li><a href="https://seniorenjournaal.nl/diensten/bankhelpdeskfraude-steeds-slimmer/" target="_blank" rel="noopener">ABN AMRO</a> — fraudeurs zetten nu 5–7 tools tegelijk in, waaronder deepfake-stemmen</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -429,7 +453,7 @@
         <span class="step-num" aria-hidden="true">3</span>
       </div>
       <h3>Bij onraad: jullie weten het allebei meteen</h3>
-      <p>Je ouder krijgt een waarschuwing op het eigen scherm, en jij een seintje: <strong>"Bel je moeder nu even."</strong> Zo sta je náást haar, ook als je er niet bent.</p>
+      <p>Je ouder krijgt een waarschuwing op het eigen scherm, en jij een seintje: <strong>"Bel je ouder nu even."</strong> Zo sta je náást je ouder, ook als je er niet bent.</p>
     </div>
   </div>
 </section>
@@ -457,7 +481,7 @@
       <span class="chip">Geen uitgaven</span>
       <span class="chip">Geen transacties</span>
     </div>
-    <p>Je moeder houdt haar privacy. Jij krijgt je gemoedsrust.</p>
+    <p>Je ouder houdt de eigen privacy. Jij krijgt je gemoedsrust.</p>
   </div>
 </section>
 
