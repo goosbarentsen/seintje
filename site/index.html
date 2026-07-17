@@ -85,7 +85,10 @@
     font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
     color:var(--pine);margin-bottom:var(--heading-gap);display:block;
   }
-  section[id]{scroll-margin-top:calc(var(--nav-h) + var(--space-4) + env(safe-area-inset-top))}
+  section[id]{scroll-margin-top:var(--space-4)}
+  @media (min-width:700px){
+    section[id]{scroll-margin-top:calc(var(--nav-h) + var(--space-4) + env(safe-area-inset-top))}
+  }
 
   /* ---------- brand mark (shared: nav + footer) ---------- */
   .brand{font-family:'Newsreader',serif;font-weight:600;font-size:1.2rem;color:var(--pine-deep);
@@ -93,14 +96,16 @@
   .brand .dot{color:var(--amber)}
   .brand svg{flex:none}
 
-  /* ---------- sticky nav ---------- */
+  /* ---------- nav: sticky only from tablet width up (mobile has its own persistent bottom CTA) ---------- */
   .nav{
-    position:sticky;top:0;z-index:100;
     padding-top:env(safe-area-inset-top);
     background:rgba(251,252,252,.9);
     -webkit-backdrop-filter:saturate(180%) blur(10px);
     backdrop-filter:saturate(180%) blur(10px);
     border-bottom:1px solid var(--line);
+  }
+  @media (min-width:700px){
+    .nav{position:sticky;top:0;z-index:100}
   }
   .nav-inner{
     height:var(--nav-h);
@@ -179,24 +184,30 @@
   @media (prefers-reduced-motion:reduce){
     .alert,.thread{animation:none}
     html{scroll-behavior:auto}
-    .sticky-cta{transition:none}
+    .float-cta{transition:none}
   }
 
-  /* ---------- persistent mobile CTA: hidden once the real signup form is in view ---------- */
-  .sticky-cta{display:none}
+  /* ---------- persistent mobile CTA: floats over content, hidden until past the hero CTA and again once the real form is in view ---------- */
+  .float-cta{display:none}
   @media (max-width:699px){
-    body{padding-bottom:var(--space-9)}
-    .sticky-cta{
-      display:block;position:fixed;left:0;right:0;bottom:0;z-index:90;
-      padding:var(--space-3) var(--gutter) calc(var(--space-3) + env(safe-area-inset-bottom));
-      background:var(--pine-deep);
-      box-shadow:0 -4px 20px rgba(18,54,71,.28);
-      transition:transform .2s ease,opacity .2s ease;
+    body{padding-bottom:calc(var(--space-9) + env(safe-area-inset-bottom))}
+    .float-cta{
+      display:inline-flex;align-items:center;justify-content:center;
+      position:fixed;z-index:90;
+      left:50%;bottom:calc(var(--space-5) + env(safe-area-inset-bottom));
+      transform:translateX(-50%);
+      min-height:var(--space-7);
+      padding:var(--space-3) var(--btn-pad-x);
+      border-radius:999px;white-space:nowrap;
+      background:var(--pine-deep);color:#fff;font-weight:700;font-size:1rem;
+      text-decoration:none;
+      box-shadow:0 10px 28px rgba(18,54,71,.35),0 2px 8px rgba(18,54,71,.22);
+      transition:opacity .25s ease,transform .25s ease;
     }
-    .sticky-cta.is-hidden{transform:translateY(100%);opacity:0;pointer-events:none}
-    .sticky-cta .cta{
-      display:block;width:100%;text-align:center;margin-top:0;
-      background:#fff;color:var(--pine-deep);
+    .float-cta:hover{transform:translateX(-50%) translateY(-2px)}
+    .float-cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+    .float-cta.is-hidden{
+      opacity:0;transform:translateX(-50%) translateY(12px) scale(.96);pointer-events:none;
     }
   }
 
@@ -343,7 +354,7 @@
 <div class="hero wrap">
   <h1>Krijg direct een seintje als je moeder geld overmaakt naar een oplichter.</h1>
   <p class="sub">Oplichters praten ouderen aan de telefoon naar hun spaargeld. Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen zodra er iets ongebruikelijks gebeurt. Zodat één telefoontje van jou de oplichter stopt.</p>
-  <a class="cta" href="#aanmelden">Zet mij op de wachtlijst</a>
+  <a class="cta" href="#aanmelden" id="hero-cta">Zet mij op de wachtlijst</a>
   <p class="micro">Gratis en vrijblijvend. We lanceren binnenkort met een kleine groep families.</p>
 
   <!-- signatuur: het moment dat de betovering breekt -->
@@ -600,22 +611,34 @@
 </footer>
 
 <!-- ================= PERSISTENT MOBILE CTA ================= -->
-<!-- Only rendered on narrow viewports (see .sticky-cta CSS); auto-hides once #aanmelden itself is in view. -->
-<div class="sticky-cta" id="sticky-cta">
-  <a class="cta" href="#aanmelden">Zet mij op de wachtlijst</a>
-</div>
+<!-- Only rendered on narrow viewports (see .float-cta CSS). Fades in once the hero's own
+     button scrolls out of view, and hides again once the real signup form is in view. -->
+<a class="float-cta" id="float-cta" href="#aanmelden">Zet mij op de wachtlijst</a>
 
 <script>
 (function(){
-  var bar = document.getElementById('sticky-cta');
+  var floatBtn = document.getElementById('float-cta');
+  var heroCta = document.getElementById('hero-cta');
   var target = document.getElementById('aanmelden');
-  if(!bar || !target || !('IntersectionObserver' in window)) return;
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      bar.classList.toggle('is-hidden', entry.isIntersecting);
-    });
-  }, { rootMargin: '0px 0px -15% 0px' });
-  observer.observe(target);
+  if(!floatBtn || !target || !('IntersectionObserver' in window)) return;
+
+  var heroPassed = false;
+  var formVisible = false;
+  function update(){
+    floatBtn.classList.toggle('is-hidden', !heroPassed || formVisible);
+  }
+
+  if(heroCta){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){ heroPassed = !entry.isIntersecting; update(); });
+    }).observe(heroCta);
+  } else {
+    heroPassed = true;
+  }
+
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){ formVisible = entry.isIntersecting; update(); });
+  }, { rootMargin: '0px 0px -15% 0px' }).observe(target);
 })();
 </script>
 
