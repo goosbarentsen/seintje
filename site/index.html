@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Seintje — Weet het meteen als je moeder geld overmaakt naar een oplichter</title>
+<meta name="description" content="Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen bij verdachte overboekingen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:light only;
+    --ink:#16242E;
+    --ink-soft:#374B57;
+    --paper:#FBFCFC;
+    --pine:#1C4B60;
+    --pine-deep:#123647;
+    --tint:#EBF2F5;
+    --amber:#E2A23F;
+    --amber-soft:#EBF2F5;
+    --line:#D6E1E7;
+    --radius:14px;
+    --maxw:660px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;background:#FBFCFC}
+  body{
+    font-family:'Instrument Sans',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    font-size:18px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  h1,h2{font-family:'Newsreader',serif;font-weight:600;line-height:1.22;letter-spacing:-0.01em}
+  h1{font-size:clamp(2rem,6.5vw,3rem)}
+  h2{font-size:clamp(1.45rem,4.5vw,1.9rem);margin-bottom:.7em}
+  p{color:var(--ink-soft);hyphens:auto;-webkit-hyphens:auto}
+  strong{color:var(--ink)}
+  .eyebrow{
+    font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--pine);margin-bottom:1em;display:block;
+  }
+
+  /* ---------- header ---------- */
+  header{padding:26px 0 0}
+  .brand{font-family:'Newsreader',serif;font-weight:600;font-size:1.25rem;color:var(--pine-deep)}
+  .brand .dot{color:var(--amber)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:56px 0 30px;text-align:left}
+  .hero h1{margin-bottom:.55em}
+  .hero .sub{font-size:1.08rem;max-width:34em}
+  .cta{
+    display:inline-block;margin-top:1.6em;
+    background:var(--pine-deep);color:#FFFFFF;
+    font-weight:700;font-size:1.08rem;
+    padding:16px 30px;min-height:52px;border-radius:999px;border:none;cursor:pointer;
+    text-decoration:none;
+    box-shadow:0 2px 0 rgba(18,54,71,.22);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .cta:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,54,71,.2)}
+  .cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+  .micro{font-size:.92rem;font-weight:500;margin-top:.9em;color:var(--ink-soft)}
+
+  /* ---------- signature: the double alert ---------- */
+  .moment{
+    margin:54px 0 10px;
+    background:var(--tint);
+    border-radius:var(--radius);
+    padding:34px 22px 28px;
+    position:relative;overflow:hidden;
+  }
+  .moment .label{
+    font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--pine);text-align:center;margin-bottom:22px;
+  }
+  .alerts{display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:420px;margin:0 auto}
+  .alert{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;box-shadow:0 3px 14px rgba(28,43,39,.07);
+    animation:rise .7s ease both;
+  }
+  .alert + .thread + .alert{animation-delay:.55s}
+  .alert .who{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+  .alert .badge{
+    width:26px;height:26px;border-radius:50%;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.72rem;font-weight:600;color:#fff;background:var(--pine);
+  }
+  .alert.warn .badge{background:var(--amber);color:var(--ink)}
+  .alert .who span{font-size:.8rem;font-weight:600;color:var(--ink)}
+  .alert p{font-size:.93rem;color:var(--ink);line-height:1.45}
+  .thread{
+    width:2px;height:26px;margin:0 auto;
+    background:repeating-linear-gradient(to bottom,var(--pine) 0 4px,transparent 4px 8px);
+    animation:rise .4s ease both;animation-delay:.35s;
+  }
+  .moment .foot{font-size:.85rem;text-align:center;margin-top:20px;color:var(--ink-soft)}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion:reduce){
+    .alert,.thread{animation:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0}
+  section p + p{margin-top:1em}
+  section + section{border-top:1px solid var(--line)}
+  .steps{display:flex;flex-direction:column;gap:26px;margin-top:8px}
+  .step{display:flex;gap:16px;align-items:flex-start}
+  .step .n{
+    font-family:'Newsreader',serif;font-size:1.15rem;font-weight:600;
+    color:var(--pine);flex:none;width:2em;height:2em;border:1.5px solid var(--pine);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;
+  }
+  .step h3{font-size:1.05rem;font-weight:600;margin-bottom:4px;color:var(--ink)}
+  .step p{font-size:.98rem}
+
+  .promise{border-left:4px solid var(--pine);
+    background:var(--amber-soft);border-radius:var(--radius);
+    padding:26px 24px;margin-top:14px;
+  }
+  .promise p strong{font-family:'Newsreader',serif;font-size:1.12rem;font-weight:600}
+
+  .trust{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:14px}
+  .trust li{
+    padding-left:30px;position:relative;font-size:.98rem;color:var(--ink-soft);
+  }
+  .trust li::before{
+    content:"";position:absolute;left:2px;top:7px;width:14px;height:14px;
+    border-radius:50%;background:var(--pine);
+    mask:radial-gradient(circle at center, transparent 0 3px, black 3.5px);
+    -webkit-mask:radial-gradient(circle at center, transparent 0 3px, black 3.5px);
+  }
+  .trust li strong{display:inline}
+
+  /* ---------- form ---------- */
+  .signup{background:var(--pine-deep);color:#F2F6F4;border-radius:var(--radius);
+    padding:38px 26px;margin:10px 0 20px}
+  .signup h2{color:#fff}
+  .signup p{color:#DCE9F0}
+  .price{font-family:'Newsreader',serif;font-size:1.5rem;color:#fff;margin:.2em 0 .1em}
+  form{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  label{font-size:.92rem;font-weight:600;color:#F0F6F9}
+  input[type=email],select{min-height:52px;
+    width:100%;padding:13px 15px;border-radius:10px;border:1px solid #3E6478;
+    background:#fff;color:var(--ink);font-size:1rem;font-family:inherit;
+  }
+  input[type=email]:focus-visible,select:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+  .signup .cta{width:100%;text-align:center;margin-top:6px;background:#FFFFFF;color:var(--pine-deep)}
+  .signup .micro{color:#C6D9E2}
+  .fieldnote{font-size:.85rem;color:#B7CDD8;margin-top:6px}
+
+  footer{padding:26px 0 44px;font-size:.82rem;color:var(--ink-soft);text-align:center}
+  @media (prefers-color-scheme:dark){
+    html,body{background:#FBFCFC !important;color:#16242E !important}
+    input[type=email],select{background:#fff !important;color:#16242E !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:-3px;margin-right:7px"><circle cx="12" cy="17" r="3.2" fill="#123647"/><path d="M6.5 11.5a7 7 0 0 1 11 0" stroke="#123647" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5 8a11.5 11.5 0 0 1 17 0" stroke="#E2A23F" stroke-width="2.2" stroke-linecap="round"/></svg>Seintje<span class="dot">.</span></div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero wrap">
+  <h1>Krijg direct een seintje als je moeder geld overmaakt naar een oplichter.</h1>
+  <p class="sub">Oplichters praten ouderen aan de telefoon naar hun spaargeld. Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen zodra er iets ongebruikelijks gebeurt. Zodat één telefoontje van jou de oplichter stopt.</p>
+  <a class="cta" href="#aanmelden">Zet mij op de wachtlijst</a>
+  <p class="micro">Gratis en vrijblijvend. We lanceren binnenkort met een kleine groep families.</p>
+
+  <!-- signatuur: het moment dat de betovering breekt -->
+  <div class="moment" aria-label="Voorbeeld van de dubbele waarschuwing">
+    <div class="label">Het moment dat telt</div>
+    <div class="alerts">
+      <div class="alert warn">
+        <div class="who"><span class="badge">!</span><span>Op moeders telefoon</span></div>
+        <p>Heeft u nu iemand aan de telefoon? Hang eerst op — <strong>uw bank vraagt dit nooit.</strong></p>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
+      <div class="alert">
+        <div class="who"><span class="badge">✓</span><span>Op jouw telefoon</span></div>
+        <p>Ongebruikelijke overboeking bij je moeder gesignaleerd. <strong>Bel haar nu even.</strong></p>
+      </div>
+    </div>
+    <p class="foot">Oplichting werkt alleen zolang het slachtoffer alleen is. Jouw stem breekt de betovering.</p>
+  </div>
+</div>
+
+<!-- ================= PROBLEEM ================= -->
+<section class="wrap">
+  <span class="eyebrow">Waarom dit nodig is</span>
+  <h2>Het overkomt de slimste mensen. Ook jouw ouders.</h2>
+  <p>Vorig jaar maakten oplichters bijna €26 miljoen buit met nep-telefoontjes "van de bank". De trucs worden met AI zó overtuigend dat zelfs oplettende mensen erin trappen.</p>
+  <p>Een echte kloon van de bankstem. Jouw gegevens uit een datalek. Een "veilige rekening" die dat niet is.</p>
+  <p>En het pijnlijkste? De meeste slachtoffers vertellen het uit schaamte aan niemand. Kinderen ontdekken het pas weken later — als het spaargeld weg is en terughalen niet meer kan.</p>
+</section>
+
+<!-- ================= HOE HET WERKT ================= -->
+<section class="wrap">
+  <span class="eyebrow">Hoe het werkt</span>
+  <h2>Een rookmelder voor de bankrekening.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div>
+        <h3>Koppel samen de rekening</h3>
+        <p>Jij sluit het abonnement af. Samen met je vader of moeder koppel je hun rekening via de beveiligde koppeling van de bank zelf — dezelfde techniek die budget-apps al jaren gebruiken. De app kan meekijken, maar kan <strong>nooit geld overmaken</strong>. Niemand kan dat via Seintje. Ook wij niet.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div>
+        <h3>Seintje waakt op de achtergrond</h3>
+        <p>De app herkent de patronen van oplichting: een groot bedrag naar een onbekende rekening, meerdere snelle overboekingen, een plots verhoogde daglimiet. 99% van de tijd merk je er niets van.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div>
+        <h3>Bij onraad: jullie weten het allebei meteen</h3>
+        <p>Je ouder krijgt een waarschuwing op het eigen scherm, en jij een seintje: <strong>"Bel je moeder nu even."</strong> Zo sta je náást haar, ook als je er niet bent.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EERLIJKE BELOFTE ================= -->
+<section class="wrap">
+  <span class="eyebrow">Wat we wél en niet beloven</span>
+  <h2>De eerlijke belofte.</h2>
+  <p>Geen enkele app houdt elke oplichter tegen — wie dat belooft, liegt. Oplichting is bijna nooit één overboeking, maar een reeks: eerst een klein testbedrag, dan de grote klappen, vaak dagenlang. Daar zit 80–90% van de schade.</p>
+  <div class="promise">
+    <p><strong>Onze belofte: als de eerste overboeking ons ontglipt, zorgen we dat het ook de laatste is.</strong></p>
+    <p style="margin-top:.5em;font-size:.95rem">En snel alarm betekent dat de bank de rekening van de crimineel soms nog kan bevriezen — elke minuut telt.</p>
+  </div>
+</section>
+
+<!-- ================= WAARDIGHEID ================= -->
+<section class="wrap">
+  <span class="eyebrow">Voor je vader of moeder</span>
+  <h2>Geen oppas. Een schild.</h2>
+  <p>Seintje is er niet om je ouders te controleren. Ze zien zelf precies wat de app doet, geven zelf toestemming, en kunnen die elk moment intrekken.</p>
+  <p>Jij ziet <strong>géén saldo, géén uitgaven, géén transacties</strong> — alleen een alarm als er iets niet klopt.</p>
+  <p>Je moeder houdt haar privacy. Jij krijgt je gemoedsrust.</p>
+</section>
+
+<!-- ================= VERTROUWEN ================= -->
+<section class="wrap">
+  <span class="eyebrow">Veiligheid voorop</span>
+  <h2>Zo houden we het veilig.</h2>
+  <ul class="trust">
+    <li><strong>Meekijken, nooit aankomen.</strong> Seintje kan geen geld overmaken, niets betalen en niets veranderen. Dat is technisch onmogelijk gemaakt — ook voor ons. Vergelijk het met een raam: je ziet wat er gebeurt, maar je kunt er niet doorheen.</li>
+    <li><strong>Via de bank zelf.</strong> De koppeling loopt via de officiële, Europees gereguleerde bankverbinding (PSD2) — je ouder logt in bij de éigen bank, wij zien nooit inloggegevens.</li>
+    <li><strong>Minimale gegevens.</strong> Wij slaan niet méér op dan nodig voor het alarm. De gegevens van je ouders worden nooit verkocht of gedeeld. Punt.</li>
+    <li><strong>Werkt bij alle grote banken.</strong> ING, Rabobank, ABN AMRO, SNS, ASN, RegioBank, Triodos — ook met een kaartlezer, zonder smartphone.</li>
+  </ul>
+</section>
+
+<!-- ================= PRIJS + FORM ================= -->
+<section class="wrap" id="aanmelden">
+  <div class="signup">
+    <span class="eyebrow" style="color:#9CC8DE">Wachtlijst</span>
+    <h2>Minder dan een boeket bloemen.</h2>
+    <p class="price">€9,95 per maand</p>
+    <p>Deel het abonnement met je broers en zussen — bescherming voor beide ouders vanaf €14,95. Opzegbaar per maand.</p>
+    <p style="margin-top:.8em;font-size:.9rem">Ter vergelijking: het gemiddelde slachtoffer van bankhelpdeskfraude verliest duizenden euro's. Vaak het spaargeld van een leven.</p>
+
+    <!-- LET OP: vervang JOUW_FORM_ID door je eigen Formspree-ID (gratis account op formspree.io) -->
+    <form action="https://formspree.io/f/JOUW_FORM_ID" method="POST">
+      <div>
+        <label for="email">Je e-mailadres</label>
+        <input type="email" id="email" name="email" required placeholder="naam@voorbeeld.nl" autocomplete="email">
+        <p class="fieldnote">Alleen voor het lanceringsbericht. Geen nieuwsbrief, geen doorverkoop.</p>
+      </div>
+      <div>
+        <label for="wie">Wiens rekening wil je beschermen?</label>
+        <select id="wie" name="rekening_van" required>
+          <option value="" disabled selected>Maak een keuze</option>
+          <option value="moeder">Mijn moeder</option>
+          <option value="vader">Mijn vader</option>
+          <option value="beiden">Beide ouders</option>
+          <option value="anders">Iemand anders</option>
+        </select>
+        <p class="fieldnote">Helpt ons de app op de juiste situaties te bouwen.</p>
+      </div>
+      <button class="cta" type="submit">Zet mij op de wachtlijst</button>
+      <p class="micro">Gratis en vrijblijvend. We mailen alleen over de lancering — geen nieuwsbrieven, geen gedoe.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="wrap">
+  Seintje wordt gebouwd in Nederland, vanuit een simpele overtuiging: niemand zou het spaargeld van zijn ouders aan een oplichter moeten verliezen. Vragen of meedenken? Mail <a href="mailto:hallo@seintje.nl" style="color:var(--pine);font-weight:600">hallo@seintje.nl</a> — je krijgt antwoord van de oprichter zelf.
+</footer>
+
+</body>
+</html>
