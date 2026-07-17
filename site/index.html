@@ -156,6 +156,11 @@
   .signup .micro{color:#C6D9E2}
   .fieldnote{font-size:.85rem;color:#B7CDD8;margin-top:6px}
 
+  .thanks{display:none;margin-top:22px;padding-top:22px;border-top:1px solid #3E6478}
+  .thanks:target{display:block}
+  .thanks p{color:#F2F6F4}
+  .thanks p+p{margin-top:.5em;color:#DCE9F0;font-size:.95rem}
+
   footer{padding:26px 0 44px;font-size:.82rem;color:var(--ink-soft);text-align:center}
   @media (prefers-color-scheme:dark){
     html,body{background:#FBFCFC !important;color:#16242E !important}
@@ -273,7 +278,8 @@
     <p>Deel het abonnement met je broers en zussen — bescherming voor beide ouders vanaf €14,95. Opzegbaar per maand.</p>
     <p style="margin-top:.8em;font-size:.9rem">Ter vergelijking: het gemiddelde slachtoffer van bankhelpdeskfraude verliest duizenden euro's. Vaak het spaargeld van een leven.</p>
 
-    <form action="https://formspree.io/f/xvzekdrd" method="POST">
+    <form id="waitlist-form" action="https://formspree.io/f/xvzekdrd" method="POST">
+      <input type="hidden" name="_next" value="https://seintje-app.nl/#bedankt">
       <div>
         <label for="email">Je e-mailadres</label>
         <input type="email" id="email" name="email" required placeholder="naam@voorbeeld.nl" autocomplete="email">
@@ -292,9 +298,40 @@
       </div>
       <button class="cta" type="submit">Zet mij op de wachtlijst</button>
       <p class="micro">Gratis en vrijblijvend. We mailen alleen over de lancering — geen nieuwsbrieven, geen gedoe.</p>
+      <p id="form-error" class="fieldnote" style="display:none;color:#FFC9C9">Er ging iets mis bij het versturen. Mail ons gerust op <a href="mailto:info@seintje-app.nl" style="color:inherit">info@seintje-app.nl</a>.</p>
     </form>
+    <div id="bedankt" class="thanks" role="status">
+      <p><strong>Bedankt! Je staat op de wachtlijst.</strong></p>
+      <p>We mailen je zodra Seintje live gaat — geen nieuwsbrieven, geen gedoe.</p>
+    </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var form = document.getElementById('waitlist-form');
+  var error = document.getElementById('form-error');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    error.style.display = 'none';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        form.style.display = 'none';
+        location.hash = 'bedankt';
+      } else {
+        error.style.display = 'block';
+      }
+    }).catch(function(){
+      error.style.display = 'block';
+    });
+  });
+})();
+</script>
 
 <footer class="wrap">
   Seintje wordt gebouwd in Nederland, vanuit een simpele overtuiging: niemand zou het spaargeld van zijn ouders aan een oplichter moeten verliezen. Vragen of meedenken? Mail <a href="mailto:info@seintje-app.nl" style="color:var(--pine);font-weight:600">info@seintje-app.nl</a> — je krijgt antwoord van de oprichter zelf.
