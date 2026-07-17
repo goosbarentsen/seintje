@@ -23,6 +23,8 @@
     --line:#D6E1E7;
     --radius:14px;
     --maxw:660px;
+    --maxw-wide:980px;
+    --nav-h:68px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;background:#FBFCFC}
@@ -35,23 +37,58 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .wrap-wide{max-width:var(--maxw-wide);margin:0 auto;padding:0 22px}
   h1,h2{font-family:'Newsreader',serif;font-weight:600;line-height:1.22;letter-spacing:-0.01em}
   h1{font-size:clamp(2rem,6.5vw,3rem)}
   h2{font-size:clamp(1.45rem,4.5vw,1.9rem);margin-bottom:.7em}
+  h3{font-size:1.05rem;font-weight:600;color:var(--ink)}
   p{color:var(--ink-soft);hyphens:auto;-webkit-hyphens:auto}
   strong{color:var(--ink)}
+  a{color:inherit}
   .eyebrow{
     font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
     color:var(--pine);margin-bottom:1em;display:block;
   }
+  section[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
 
-  /* ---------- header ---------- */
-  header{padding:26px 0 0}
-  .brand{font-family:'Newsreader',serif;font-weight:600;font-size:1.25rem;color:var(--pine-deep)}
+  /* ---------- brand mark (shared: nav + footer) ---------- */
+  .brand{font-family:'Newsreader',serif;font-weight:600;font-size:1.2rem;color:var(--pine-deep);
+    display:inline-flex;align-items:center;gap:7px;text-decoration:none}
   .brand .dot{color:var(--amber)}
+  .brand svg{flex:none}
+
+  /* ---------- sticky nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(251,252,252,.9);
+    -webkit-backdrop-filter:saturate(180%) blur(10px);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    height:var(--nav-h);
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+  }
+  .nav-links{display:none;align-items:center;gap:30px;list-style:none}
+  .nav-links a{
+    color:var(--ink-soft);text-decoration:none;font-size:.95rem;font-weight:600;
+    padding:4px 2px;border-bottom:2px solid transparent;transition:color .12s ease,border-color .12s ease;
+  }
+  .nav-links a:hover{color:var(--pine-deep);border-color:var(--line)}
+  .nav-links a:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:3px}
+  .nav-cta{
+    display:inline-block;background:var(--pine-deep);color:#fff;font-weight:700;font-size:.85rem;
+    padding:10px 18px;border-radius:999px;text-decoration:none;white-space:nowrap;
+    box-shadow:0 2px 0 rgba(18,54,71,.22);transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,54,71,.2)}
+  .nav-cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+  @media (min-width:700px){
+    .nav-links{display:flex}
+  }
 
   /* ---------- hero ---------- */
-  .hero{padding:56px 0 30px;text-align:left}
+  .hero{padding:48px 0 30px;text-align:left}
   .hero h1{margin-bottom:.55em}
   .hero .sub{font-size:1.08rem;max-width:34em}
   .cta{
@@ -67,7 +104,7 @@
   .cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
   .micro{font-size:.92rem;font-weight:500;margin-top:.9em;color:var(--ink-soft)}
 
-  /* ---------- signature: the double alert ---------- */
+  /* ---------- signature: the double alert (untouched — this stays THE moment) ---------- */
   .moment{
     margin:54px 0 10px;
     background:var(--tint);
@@ -111,37 +148,79 @@
   section{padding:56px 0}
   section p + p{margin-top:1em}
   section + section{border-top:1px solid var(--line)}
-  .steps{display:flex;flex-direction:column;gap:26px;margin-top:8px}
-  .step{display:flex;gap:16px;align-items:flex-start}
-  .step .n{
-    font-family:'Newsreader',serif;font-size:1.15rem;font-weight:600;
-    color:var(--pine);flex:none;width:2em;height:2em;border:1.5px solid var(--pine);
-    border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;
-  }
-  .step h3{font-size:1.05rem;font-weight:600;margin-bottom:4px;color:var(--ink)}
-  .step p{font-size:.98rem}
 
+  /* generic panel/card used for single-block sections (problem, promise, dignity) */
+  .panel{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:32px 26px;box-shadow:0 3px 18px rgba(28,43,39,.05);
+  }
+  .panel > .eyebrow{margin-bottom:.8em}
+
+  /* short parallel fragments rendered as chips instead of run-on prose */
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{
+    font-size:.86rem;font-weight:600;color:var(--pine-deep);
+    background:var(--tint);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;line-height:1.3;
+  }
+
+  .stat-number{font-family:'Newsreader',serif;font-weight:600;color:var(--pine-deep)}
+
+  /* ---------- how it works: step cards ---------- */
+  .steps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:8px}
+  @media (min-width:820px){
+    .steps{grid-template-columns:repeat(3,1fr)}
+  }
+  .step-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 22px;box-shadow:0 3px 18px rgba(28,43,39,.05);
+  }
+  .step-icon{
+    position:relative;width:52px;height:52px;border-radius:50%;
+    background:var(--tint);color:var(--pine);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  }
+  .step-icon svg{width:24px;height:24px}
+  .step-icon .step-num{
+    position:absolute;bottom:-4px;right:-4px;width:21px;height:21px;border-radius:50%;
+    background:var(--pine-deep);color:#fff;font-size:.68rem;font-weight:700;
+    display:flex;align-items:center;justify-content:center;border:2px solid var(--paper);
+  }
+  .step-card h3{margin-bottom:6px}
+  .step-card p{font-size:.98rem}
+
+  /* ---------- promise (existing box, now with card shadow) ---------- */
   .promise{border-left:4px solid var(--pine);
     background:var(--amber-soft);border-radius:var(--radius);
     padding:26px 24px;margin-top:14px;
+    box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
   .promise p strong{font-family:'Newsreader',serif;font-size:1.12rem;font-weight:600}
 
-  .trust{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:14px}
-  .trust li{
-    padding-left:30px;position:relative;font-size:.98rem;color:var(--ink-soft);
+  /* ---------- security / trust grid ---------- */
+  .trust-grid{
+    display:grid;grid-template-columns:1fr;gap:16px;margin-top:8px;
   }
-  .trust li::before{
-    content:"";position:absolute;left:2px;top:7px;width:14px;height:14px;
-    border-radius:50%;background:var(--pine);
-    mask:radial-gradient(circle at center, transparent 0 3px, black 3.5px);
-    -webkit-mask:radial-gradient(circle at center, transparent 0 3px, black 3.5px);
+  @media (min-width:640px){
+    .trust-grid{grid-template-columns:repeat(2,1fr)}
   }
-  .trust li strong{display:inline}
+  .trust-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 22px;box-shadow:0 3px 18px rgba(28,43,39,.05);
+  }
+  .trust-icon{
+    width:44px;height:44px;border-radius:12px;background:var(--tint);color:var(--pine);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  }
+  .trust-icon svg{width:22px;height:22px}
+  .trust-card h3{margin-bottom:6px}
+  .trust-card p{font-size:.96rem}
+  .bank-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .bank-list .chip{color:var(--ink-soft);font-weight:600}
 
   /* ---------- form ---------- */
   .signup{background:var(--pine-deep);color:#F2F6F4;border-radius:var(--radius);
-    padding:38px 26px;margin:10px 0 20px}
+    padding:38px 26px;margin:10px 0 20px;box-shadow:0 8px 28px rgba(18,54,71,.18)}
   .signup h2{color:#fff}
   .signup p{color:#DCE9F0}
   .price{font-family:'Newsreader',serif;font-size:1.5rem;color:#fff;margin:.2em 0 .1em}
@@ -162,18 +241,46 @@
   .thanks strong{color:#fff}
   .thanks p+p{margin-top:.5em;color:#DCE9F0;font-size:.95rem}
 
-  footer{padding:26px 0 44px;font-size:.82rem;color:var(--ink-soft);text-align:center}
+  /* ---------- footer ---------- */
+  .footer{background:var(--tint);border-top:1px solid var(--line);padding:48px 0 32px}
+  .footer-grid{display:grid;grid-template-columns:1fr;gap:32px}
+  @media (min-width:700px){
+    .footer-grid{grid-template-columns:1.4fr 1fr 1fr}
+  }
+  .footer-col h4{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--pine);margin-bottom:12px}
+  .footer-col p{font-size:.92rem;color:var(--ink-soft);margin:0}
+  .footer-col p+p{margin-top:8px}
+  .footer-col a{text-decoration:none;font-weight:600;color:var(--pine-deep);display:inline-block;padding:4px 0}
+  .footer-col a:hover{text-decoration:underline}
+  .footer-col a:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:3px}
+  .footer-brand .brand{margin-bottom:10px}
+  .footer-brand p{max-width:32em}
+
   @media (prefers-color-scheme:dark){
     html,body{background:#FBFCFC !important;color:#16242E !important}
     input[type=email],select{background:#fff !important;color:#16242E !important}
+    .nav{background:rgba(251,252,252,.9) !important}
   }
 </style>
 </head>
 <body>
 
-<header class="wrap">
-  <div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:-3px;margin-right:7px"><circle cx="12" cy="17" r="3.2" fill="#123647"/><path d="M6.5 11.5a7 7 0 0 1 11 0" stroke="#123647" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5 8a11.5 11.5 0 0 1 17 0" stroke="#E2A23F" stroke-width="2.2" stroke-linecap="round"/></svg>Seintje<span class="dot">.</span></div>
-</header>
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner wrap-wide">
+    <a class="brand" href="#" aria-label="Seintje — naar boven">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="17" r="3.2" fill="#123647"/><path d="M6.5 11.5a7 7 0 0 1 11 0" stroke="#123647" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5 8a11.5 11.5 0 0 1 17 0" stroke="#E2A23F" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Seintje<span class="dot">.</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hoe-het-werkt">Hoe het werkt</a></li>
+      <li><a href="#veiligheid">Veiligheid</a></li>
+      <li><a href="#aanmelden">Prijs</a></li>
+    </ul>
+    <a class="nav-cta" href="#aanmelden">Op de wachtlijst</a>
+  </div>
+</nav>
 
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
@@ -202,38 +309,59 @@
 
 <!-- ================= PROBLEEM ================= -->
 <section class="wrap">
-  <span class="eyebrow">Waarom dit nodig is</span>
-  <h2>Het overkomt de slimste mensen. Ook jouw ouders.</h2>
-  <p>Vorig jaar maakten oplichters bijna €26 miljoen buit met nep-telefoontjes "van de bank". De trucs worden met AI zó overtuigend dat zelfs oplettende mensen erin trappen.</p>
-  <p>Een echte kloon van de bankstem. Jouw gegevens uit een datalek. Een "veilige rekening" die dat niet is.</p>
-  <p>En het pijnlijkste? De meeste slachtoffers vertellen het uit schaamte aan niemand. Kinderen ontdekken het pas weken later — als het spaargeld weg is en terughalen niet meer kan.</p>
+  <div class="panel">
+    <span class="eyebrow">Waarom dit nodig is</span>
+    <h2>Het overkomt de slimste mensen. Ook jouw ouders.</h2>
+    <p>Vorig jaar maakten oplichters <span class="stat-number">bijna €26 miljoen</span> buit met nep-telefoontjes "van de bank". De trucs worden met AI zó overtuigend dat zelfs oplettende mensen erin trappen.</p>
+    <div class="chip-row">
+      <span class="chip">Een echte kloon van de bankstem</span>
+      <span class="chip">Jouw gegevens uit een datalek</span>
+      <span class="chip">Een "veilige rekening" die dat niet is</span>
+    </div>
+    <p style="margin-top:16px">En het pijnlijkste? De meeste slachtoffers vertellen het uit schaamte aan niemand. Kinderen ontdekken het pas weken later — als het spaargeld weg is en terughalen niet meer kan.</p>
+  </div>
 </section>
 
 <!-- ================= HOE HET WERKT ================= -->
-<section class="wrap">
-  <span class="eyebrow">Hoe het werkt</span>
-  <h2>Een rookmelder voor de bankrekening.</h2>
+<section class="wrap-wide" id="hoe-het-werkt">
+  <div class="wrap" style="max-width:none;padding:0">
+    <span class="eyebrow">Hoe het werkt</span>
+    <h2>Een rookmelder voor de bankrekening.</h2>
+  </div>
   <div class="steps">
-    <div class="step">
-      <div class="n">1</div>
-      <div>
-        <h3>Koppel samen de rekening</h3>
-        <p>Jij sluit het abonnement af. Samen met je vader of moeder koppel je hun rekening via de beveiligde koppeling van de bank zelf — dezelfde techniek die budget-apps al jaren gebruiken. De app kan meekijken, maar kan <strong>nooit geld overmaken</strong>. Niemand kan dat via Seintje. Ook wij niet.</p>
+    <div class="step-card">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9.5 14.5 14.5 9.5"/>
+          <path d="M11 6.5 12.5 5a3 3 0 0 1 4.5 4.5L15.5 11"/>
+          <path d="M13 17.5 11.5 19a3 3 0 0 1-4.5-4.5L8.5 13"/>
+        </svg>
+        <span class="step-num" aria-hidden="true">1</span>
       </div>
+      <h3>Koppel samen de rekening</h3>
+      <p>Jij sluit het abonnement af. Samen met je vader of moeder koppel je hun rekening via de beveiligde koppeling van de bank zelf — dezelfde techniek die budget-apps al jaren gebruiken. De app kan meekijken, maar kan <strong>nooit geld overmaken</strong>. Niemand kan dat via Seintje. Ook wij niet.</p>
     </div>
-    <div class="step">
-      <div class="n">2</div>
-      <div>
-        <h3>Seintje waakt op de achtergrond</h3>
-        <p>De app herkent de patronen van oplichting: een groot bedrag naar een onbekende rekening, meerdere snelle overboekingen, een plots verhoogde daglimiet. 99% van de tijd merk je er niets van.</p>
+    <div class="step-card">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/>
+          <circle cx="12" cy="12" r="2.6"/>
+        </svg>
+        <span class="step-num" aria-hidden="true">2</span>
       </div>
+      <h3>Seintje waakt op de achtergrond</h3>
+      <p>De app herkent de patronen van oplichting: een groot bedrag naar een onbekende rekening, meerdere snelle overboekingen, een plots verhoogde daglimiet. 99% van de tijd merk je er niets van.</p>
     </div>
-    <div class="step">
-      <div class="n">3</div>
-      <div>
-        <h3>Bij onraad: jullie weten het allebei meteen</h3>
-        <p>Je ouder krijgt een waarschuwing op het eigen scherm, en jij een seintje: <strong>"Bel je moeder nu even."</strong> Zo sta je náást haar, ook als je er niet bent.</p>
+    <div class="step-card">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 16v-5a6 6 0 1 0-12 0v5l-1.5 2.5h15L18 16Z"/>
+          <path d="M10 20a2 2 0 0 0 4 0"/>
+        </svg>
+        <span class="step-num" aria-hidden="true">3</span>
       </div>
+      <h3>Bij onraad: jullie weten het allebei meteen</h3>
+      <p>Je ouder krijgt een waarschuwing op het eigen scherm, en jij een seintje: <strong>"Bel je moeder nu even."</strong> Zo sta je náást haar, ook als je er niet bent.</p>
     </div>
   </div>
 </section>
@@ -251,23 +379,79 @@
 
 <!-- ================= WAARDIGHEID ================= -->
 <section class="wrap">
-  <span class="eyebrow">Voor je vader of moeder</span>
-  <h2>Geen oppas. Een schild.</h2>
-  <p>Seintje is er niet om je ouders te controleren. Ze zien zelf precies wat de app doet, geven zelf toestemming, en kunnen die elk moment intrekken.</p>
-  <p>Jij ziet <strong>géén saldo, géén uitgaven, géén transacties</strong> — alleen een alarm als er iets niet klopt.</p>
-  <p>Je moeder houdt haar privacy. Jij krijgt je gemoedsrust.</p>
+  <div class="panel">
+    <span class="eyebrow">Voor je vader of moeder</span>
+    <h2>Geen oppas. Een schild.</h2>
+    <p>Seintje is er niet om je ouders te controleren. Ze zien zelf precies wat de app doet, geven zelf toestemming, en kunnen die elk moment intrekken.</p>
+    <p>Jij ziet <strong>geen van deze dingen</strong> — alleen een alarm als er iets niet klopt:</p>
+    <div class="chip-row">
+      <span class="chip">Geen saldo</span>
+      <span class="chip">Geen uitgaven</span>
+      <span class="chip">Geen transacties</span>
+    </div>
+    <p style="margin-top:16px">Je moeder houdt haar privacy. Jij krijgt je gemoedsrust.</p>
+  </div>
 </section>
 
-<!-- ================= VERTROUWEN ================= -->
-<section class="wrap">
-  <span class="eyebrow">Veiligheid voorop</span>
-  <h2>Zo houden we het veilig.</h2>
-  <ul class="trust">
-    <li><strong>Meekijken, nooit aankomen.</strong> Seintje kan geen geld overmaken, niets betalen en niets veranderen. Dat is technisch onmogelijk gemaakt — ook voor ons. Vergelijk het met een raam: je ziet wat er gebeurt, maar je kunt er niet doorheen.</li>
-    <li><strong>Via de bank zelf.</strong> De koppeling loopt via de officiële, Europees gereguleerde bankverbinding (PSD2) — je ouder logt in bij de éigen bank, wij zien nooit inloggegevens.</li>
-    <li><strong>Minimale gegevens.</strong> Wij slaan niet méér op dan nodig voor het alarm. De gegevens van je ouders worden nooit verkocht of gedeeld. Punt.</li>
-    <li><strong>Werkt bij alle grote banken.</strong> ING, Rabobank, ABN AMRO, SNS, ASN, RegioBank, Triodos — ook met een kaartlezer, zonder smartphone.</li>
-  </ul>
+<!-- ================= VERTROUWEN / VEILIGHEID ================= -->
+<section class="wrap-wide" id="veiligheid">
+  <div class="wrap" style="max-width:none;padding:0">
+    <span class="eyebrow">Veiligheid voorop</span>
+    <h2>Zo houden we het veilig.</h2>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="2"/>
+          <path d="M12 4v16"/>
+          <path d="M4 12h16"/>
+        </svg>
+      </div>
+      <h3>Meekijken, nooit aankomen</h3>
+      <p>Seintje kan geen geld overmaken, niets betalen en niets veranderen. Dat is technisch onmogelijk gemaakt — ook voor ons. Vergelijk het met een raam: je ziet wat er gebeurt, maar je kunt er niet doorheen.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3.5 5 6v5.5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-2.5Z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <h3>Via de bank zelf</h3>
+      <p>De koppeling loopt via de officiële, Europees gereguleerde bankverbinding (PSD2) — je ouder logt in bij de éigen bank, wij zien nooit inloggegevens.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="11" width="14" height="9" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+      </div>
+      <h3>Minimale gegevens</h3>
+      <p>Wij slaan niet méér op dan nodig voor het alarm. De gegevens van je ouders worden nooit verkocht of gedeeld. Punt.</p>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 10 12 4l9 6"/>
+          <path d="M5 10v9M9.5 10v9M14.5 10v9M19 10v9"/>
+          <path d="M3 19h18"/>
+        </svg>
+      </div>
+      <h3>Werkt bij alle grote banken</h3>
+      <p>Ook met een kaartlezer, zonder smartphone.</p>
+      <div class="bank-list">
+        <span class="chip">ING</span>
+        <span class="chip">Rabobank</span>
+        <span class="chip">ABN AMRO</span>
+        <span class="chip">SNS</span>
+        <span class="chip">ASN</span>
+        <span class="chip">RegioBank</span>
+        <span class="chip">Triodos</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ================= PRIJS + FORM ================= -->
@@ -334,8 +518,28 @@
 })();
 </script>
 
-<footer class="wrap">
-  Seintje wordt gebouwd in Nederland, vanuit een simpele overtuiging: niemand zou het spaargeld van zijn ouders aan een oplichter moeten verliezen. Vragen of meedenken? Mail <a href="mailto:info@seintje-app.nl" style="color:var(--pine);font-weight:600">info@seintje-app.nl</a> — je krijgt antwoord van de oprichter zelf.
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap-wide footer-grid">
+    <div class="footer-col footer-brand">
+      <a class="brand" href="#" aria-label="Seintje — naar boven">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="17" r="3.2" fill="#123647"/><path d="M6.5 11.5a7 7 0 0 1 11 0" stroke="#123647" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5 8a11.5 11.5 0 0 1 17 0" stroke="#E2A23F" stroke-width="2.2" stroke-linecap="round"/></svg>
+        Seintje<span class="dot">.</span>
+      </a>
+      <p>Seintje wordt gebouwd in Nederland, vanuit een simpele overtuiging: niemand zou het spaargeld van zijn ouders aan een oplichter moeten verliezen.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Vragen of meedenken?</p>
+      <p><a href="mailto:info@seintje-app.nl">info@seintje-app.nl</a></p>
+      <p style="font-size:.85rem">Je krijgt antwoord van de oprichter zelf.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Juridisch</h4>
+      <p><a href="#">Privacybeleid</a></p>
+      <p><a href="#">Algemene voorwaarden</a></p>
+    </div>
+  </div>
 </footer>
 
 </body>
