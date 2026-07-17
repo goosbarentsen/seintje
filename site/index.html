@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
 <title>Seintje — Weet het meteen als je moeder geld overmaakt naar een oplichter</title>
 <meta name="description" content="Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen bij verdachte overboekingen.">
@@ -25,6 +25,34 @@
     --maxw:660px;
     --maxw-wide:980px;
     --nav-h:68px;
+
+    /* ---------- spacing scale: every margin/padding/gap derives from this ---------- */
+    --space-1:4px;
+    --space-2:8px;
+    --space-3:12px;
+    --space-4:16px;
+    --space-5:24px;
+    --space-6:32px;
+    --space-7:48px;
+    --space-8:64px;
+    --space-9:96px;
+
+    /* responsive rhythm, built only from scale steps */
+    --gutter:clamp(var(--space-4), 5vw, var(--space-6));
+    --section-y:clamp(var(--space-6), 8vw, var(--space-9));
+
+    /* shared component spacing - one value per role, reused everywhere */
+    --card-pad:var(--space-5);
+    --card-pad-lg:var(--space-6);
+    --btn-pad-y:var(--space-4);
+    --btn-pad-x:var(--space-6);
+    --btn-pad-y-sm:var(--space-2);
+    --btn-pad-x-sm:var(--space-4);
+    --field-pad-y:var(--space-3);
+    --field-pad-x:var(--space-4);
+    --heading-gap:var(--space-3);
+    --para-gap:var(--space-4);
+    --card-gap:var(--space-5);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;background:#FBFCFC}
@@ -36,30 +64,39 @@
     font-size:18px;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-  .wrap-wide{max-width:var(--maxw-wide);margin:0 auto;padding:0 22px}
+  /* ---------- one container rule: gutter + safe-area, everywhere ---------- */
+  .wrap,.wrap-wide{
+    margin:0 auto;
+    padding-left:calc(var(--gutter) + env(safe-area-inset-left));
+    padding-right:calc(var(--gutter) + env(safe-area-inset-right));
+  }
+  .wrap{max-width:var(--maxw)}
+  .wrap-wide{max-width:var(--maxw-wide)}
+  .intro{max-width:640px}
+
   h1,h2{font-family:'Newsreader',serif;font-weight:600;line-height:1.22;letter-spacing:-0.01em}
-  h1{font-size:clamp(2rem,6.5vw,3rem)}
-  h2{font-size:clamp(1.45rem,4.5vw,1.9rem);margin-bottom:.7em}
-  h3{font-size:1.05rem;font-weight:600;color:var(--ink)}
+  h1{font-size:clamp(2rem,6.5vw,3rem);margin-bottom:var(--heading-gap)}
+  h2{font-size:clamp(1.45rem,4.5vw,1.9rem);margin-bottom:var(--heading-gap)}
+  h3{font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:var(--heading-gap)}
   p{color:var(--ink-soft);hyphens:auto;-webkit-hyphens:auto}
   strong{color:var(--ink)}
   a{color:inherit}
   .eyebrow{
     font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--pine);margin-bottom:1em;display:block;
+    color:var(--pine);margin-bottom:var(--heading-gap);display:block;
   }
-  section[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
+  section[id]{scroll-margin-top:calc(var(--nav-h) + var(--space-4) + env(safe-area-inset-top))}
 
   /* ---------- brand mark (shared: nav + footer) ---------- */
   .brand{font-family:'Newsreader',serif;font-weight:600;font-size:1.2rem;color:var(--pine-deep);
-    display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+    display:inline-flex;align-items:center;gap:var(--space-2);text-decoration:none}
   .brand .dot{color:var(--amber)}
   .brand svg{flex:none}
 
   /* ---------- sticky nav ---------- */
   .nav{
     position:sticky;top:0;z-index:100;
+    padding-top:env(safe-area-inset-top);
     background:rgba(251,252,252,.9);
     -webkit-backdrop-filter:saturate(180%) blur(10px);
     backdrop-filter:saturate(180%) blur(10px);
@@ -67,18 +104,19 @@
   }
   .nav-inner{
     height:var(--nav-h);
-    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
   }
-  .nav-links{display:none;align-items:center;gap:30px;list-style:none}
+  .nav-links{display:none;align-items:center;gap:var(--space-6);list-style:none}
   .nav-links a{
     color:var(--ink-soft);text-decoration:none;font-size:.95rem;font-weight:600;
-    padding:4px 2px;border-bottom:2px solid transparent;transition:color .12s ease,border-color .12s ease;
+    padding:var(--space-1);border-bottom:2px solid transparent;transition:color .12s ease,border-color .12s ease;
   }
   .nav-links a:hover{color:var(--pine-deep);border-color:var(--line)}
   .nav-links a:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:3px}
   .nav-cta{
-    display:inline-block;background:var(--pine-deep);color:#fff;font-weight:700;font-size:.85rem;
-    padding:10px 18px;border-radius:999px;text-decoration:none;white-space:nowrap;
+    display:inline-flex;align-items:center;justify-content:center;min-height:var(--space-7);
+    background:var(--pine-deep);color:#fff;font-weight:700;font-size:.85rem;
+    padding:var(--btn-pad-y-sm) var(--btn-pad-x-sm);border-radius:999px;text-decoration:none;white-space:nowrap;
     box-shadow:0 2px 0 rgba(18,54,71,.22);transition:transform .12s ease,box-shadow .12s ease;
   }
   .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,54,71,.2)}
@@ -88,42 +126,41 @@
   }
 
   /* ---------- hero ---------- */
-  .hero{padding:48px 0 30px;text-align:left}
-  .hero h1{margin-bottom:.55em}
+  .hero{padding-top:var(--section-y);text-align:left}
   .hero .sub{font-size:1.08rem;max-width:34em}
   .cta{
-    display:inline-block;margin-top:1.6em;
+    display:inline-block;margin-top:var(--space-6);
     background:var(--pine-deep);color:#FFFFFF;
     font-weight:700;font-size:1.08rem;
-    padding:16px 30px;min-height:52px;border-radius:999px;border:none;cursor:pointer;
+    padding:var(--btn-pad-y) var(--btn-pad-x);min-height:var(--space-7);border-radius:999px;border:none;cursor:pointer;
     text-decoration:none;
     box-shadow:0 2px 0 rgba(18,54,71,.22);
     transition:transform .12s ease, box-shadow .12s ease;
   }
   .cta:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,54,71,.2)}
   .cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
-  .micro{font-size:.92rem;font-weight:500;margin-top:.9em;color:var(--ink-soft)}
+  .micro{font-size:.92rem;font-weight:500;margin-top:var(--para-gap);color:var(--ink-soft)}
 
   /* ---------- signature: the double alert (untouched — this stays THE moment) ---------- */
   .moment{
-    margin:54px 0 10px;
+    margin:var(--space-7) 0 var(--space-2);
     background:var(--tint);
     border-radius:var(--radius);
-    padding:34px 22px 28px;
+    padding:var(--space-6) var(--card-pad) var(--card-pad);
     position:relative;overflow:hidden;
   }
   .moment .label{
     font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--pine);text-align:center;margin-bottom:22px;
+    color:var(--pine);text-align:center;margin-bottom:var(--card-pad);
   }
   .alerts{display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:420px;margin:0 auto}
   .alert{
     background:#fff;border:1px solid var(--line);border-radius:12px;
-    padding:14px 16px;box-shadow:0 3px 14px rgba(28,43,39,.07);
+    padding:var(--space-3) var(--space-4);box-shadow:0 3px 14px rgba(28,43,39,.07);
     animation:rise .7s ease both;
   }
   .alert + .thread + .alert{animation-delay:.55s}
-  .alert .who{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+  .alert .who{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1)}
   .alert .badge{
     width:26px;height:26px;border-radius:50%;flex:none;
     display:flex;align-items:center;justify-content:center;
@@ -137,48 +174,67 @@
     background:repeating-linear-gradient(to bottom,var(--pine) 0 4px,transparent 4px 8px);
     animation:rise .4s ease both;animation-delay:.35s;
   }
-  .moment .foot{font-size:.85rem;text-align:center;margin-top:20px;color:var(--ink-soft)}
+  .moment .foot{font-size:.85rem;text-align:center;margin-top:var(--para-gap);color:var(--ink-soft)}
   @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   @media (prefers-reduced-motion:reduce){
     .alert,.thread{animation:none}
     html{scroll-behavior:auto}
+    .sticky-cta{transition:none}
   }
 
-  /* ---------- sections ---------- */
-  section{padding:56px 0}
-  section p + p{margin-top:1em}
+  /* ---------- persistent mobile CTA: hidden once the real signup form is in view ---------- */
+  .sticky-cta{display:none}
+  @media (max-width:699px){
+    body{padding-bottom:var(--space-9)}
+    .sticky-cta{
+      display:block;position:fixed;left:0;right:0;bottom:0;z-index:90;
+      padding:var(--space-3) var(--gutter) calc(var(--space-3) + env(safe-area-inset-bottom));
+      background:var(--pine-deep);
+      box-shadow:0 -4px 20px rgba(18,54,71,.28);
+      transition:transform .2s ease,opacity .2s ease;
+    }
+    .sticky-cta.is-hidden{transform:translateY(100%);opacity:0;pointer-events:none}
+    .sticky-cta .cta{
+      display:block;width:100%;text-align:center;margin-top:0;
+      background:#fff;color:var(--pine-deep);
+    }
+  }
+
+  /* ---------- sections: one rhythm, top to bottom ---------- */
+  section{padding:var(--section-y) 0}
+  section p + p{margin-top:var(--para-gap)}
   section + section{border-top:1px solid var(--line)}
 
   /* generic panel/card used for single-block sections (problem, promise, dignity) */
   .panel{
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:32px 26px;box-shadow:0 3px 18px rgba(28,43,39,.05);
+    padding:var(--card-pad);box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
-  .panel > .eyebrow{margin-bottom:.8em}
 
   /* short parallel fragments rendered as chips instead of run-on prose */
-  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip-row{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--para-gap)}
+  .chip-row + p{margin-top:var(--para-gap)}
   .chip{
     font-size:.86rem;font-weight:600;color:var(--pine-deep);
     background:var(--tint);border:1px solid var(--line);border-radius:999px;
-    padding:7px 14px;line-height:1.3;
+    padding:var(--space-2) var(--space-3);line-height:1.3;
   }
 
   .stat-number{font-family:'Newsreader',serif;font-weight:600;color:var(--pine-deep)}
 
   /* ---------- how it works: step cards ---------- */
-  .steps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:8px}
+  .steps{display:grid;grid-template-columns:1fr;gap:var(--card-gap);margin-top:var(--space-2)}
   @media (min-width:820px){
     .steps{grid-template-columns:repeat(3,1fr)}
   }
   .step-card{
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:26px 22px;box-shadow:0 3px 18px rgba(28,43,39,.05);
+    padding:var(--card-pad);box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
   .step-icon{
     position:relative;width:52px;height:52px;border-radius:50%;
     background:var(--tint);color:var(--pine);
-    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:var(--para-gap);
   }
   .step-icon svg{width:24px;height:24px}
   .step-icon .step-num{
@@ -186,75 +242,76 @@
     background:var(--pine-deep);color:#fff;font-size:.68rem;font-weight:700;
     display:flex;align-items:center;justify-content:center;border:2px solid var(--paper);
   }
-  .step-card h3{margin-bottom:6px}
   .step-card p{font-size:.98rem}
 
   /* ---------- promise (existing box, now with card shadow) ---------- */
   .promise{border-left:4px solid var(--pine);
     background:var(--amber-soft);border-radius:var(--radius);
-    padding:26px 24px;margin-top:14px;
+    padding:var(--card-pad);margin-top:var(--para-gap);
     box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
   .promise p strong{font-family:'Newsreader',serif;font-size:1.12rem;font-weight:600}
 
   /* ---------- security / trust grid ---------- */
   .trust-grid{
-    display:grid;grid-template-columns:1fr;gap:16px;margin-top:8px;
+    display:grid;grid-template-columns:1fr;gap:var(--card-gap);margin-top:var(--space-2);
   }
   @media (min-width:640px){
     .trust-grid{grid-template-columns:repeat(2,1fr)}
   }
   .trust-card{
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:24px 22px;box-shadow:0 3px 18px rgba(28,43,39,.05);
+    padding:var(--card-pad);box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
   .trust-icon{
     width:44px;height:44px;border-radius:12px;background:var(--tint);color:var(--pine);
-    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:var(--para-gap);
   }
   .trust-icon svg{width:22px;height:22px}
-  .trust-card h3{margin-bottom:6px}
   .trust-card p{font-size:.96rem}
-  .bank-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .bank-list{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--para-gap)}
   .bank-list .chip{color:var(--ink-soft);font-weight:600}
 
   /* ---------- form ---------- */
   .signup{background:var(--pine-deep);color:#F2F6F4;border-radius:var(--radius);
-    padding:38px 26px;margin:10px 0 20px;box-shadow:0 8px 28px rgba(18,54,71,.18)}
+    padding:var(--card-pad-lg);margin:var(--space-2) 0 var(--space-5);box-shadow:0 8px 28px rgba(18,54,71,.18)}
   .signup h2{color:#fff}
   .signup p{color:#DCE9F0}
-  .price{font-family:'Newsreader',serif;font-size:1.5rem;color:#fff;margin:.2em 0 .1em}
-  form{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  .price{font-family:'Newsreader',serif;font-size:1.5rem;color:#fff;margin:var(--space-2) 0}
+  form{margin-top:var(--card-gap);display:flex;flex-direction:column;gap:var(--space-3)}
   label{font-size:.92rem;font-weight:600;color:#F0F6F9}
   input[type=email],select{min-height:52px;
-    width:100%;padding:13px 15px;border-radius:10px;border:1px solid #3E6478;
+    width:100%;padding:var(--field-pad-y) var(--field-pad-x);border-radius:10px;border:1px solid #3E6478;
     background:#fff;color:var(--ink);font-size:1rem;font-family:inherit;
   }
   input[type=email]:focus-visible,select:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-  .signup .cta{width:100%;text-align:center;margin-top:6px;background:#FFFFFF;color:var(--pine-deep)}
+  .signup .cta{width:100%;text-align:center;margin-top:var(--space-2);background:#FFFFFF;color:var(--pine-deep)}
   .signup .micro{color:#C6D9E2}
-  .fieldnote{font-size:.85rem;color:#B7CDD8;margin-top:6px}
+  .fieldnote{font-size:.85rem;color:#B7CDD8;margin-top:var(--space-1)}
 
-  .thanks{display:none;margin-top:22px;padding-top:22px;border-top:1px solid #3E6478}
+  .thanks{display:none;margin-top:var(--card-pad);padding-top:var(--card-pad);border-top:1px solid #3E6478}
   .thanks:target{display:block}
   .thanks p{color:#F2F6F4}
   .thanks strong{color:#fff}
-  .thanks p+p{margin-top:.5em;color:#DCE9F0;font-size:.95rem}
+  .thanks p+p{margin-top:var(--para-gap);color:#DCE9F0;font-size:.95rem}
 
   /* ---------- footer ---------- */
-  .footer{background:var(--tint);border-top:1px solid var(--line);padding:48px 0 32px}
-  .footer-grid{display:grid;grid-template-columns:1fr;gap:32px}
+  .footer{
+    background:var(--tint);border-top:1px solid var(--line);
+    padding:var(--section-y) 0 calc(var(--space-6) + env(safe-area-inset-bottom));
+  }
+  .footer-grid{display:grid;grid-template-columns:1fr;gap:var(--space-6)}
   @media (min-width:700px){
     .footer-grid{grid-template-columns:1.4fr 1fr 1fr}
   }
   .footer-col h4{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--pine);margin-bottom:12px}
+    color:var(--pine);margin-bottom:var(--heading-gap)}
   .footer-col p{font-size:.92rem;color:var(--ink-soft);margin:0}
-  .footer-col p+p{margin-top:8px}
-  .footer-col a{text-decoration:none;font-weight:600;color:var(--pine-deep);display:inline-block;padding:4px 0}
+  .footer-col p+p{margin-top:var(--para-gap)}
+  .footer-col a{text-decoration:none;font-weight:600;color:var(--pine-deep);display:inline-block;padding:var(--space-3) 0}
   .footer-col a:hover{text-decoration:underline}
   .footer-col a:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:3px}
-  .footer-brand .brand{margin-bottom:10px}
+  .footer-brand .brand{margin-bottom:var(--space-2)}
   .footer-brand p{max-width:32em}
 
   @media (prefers-color-scheme:dark){
@@ -318,13 +375,13 @@
       <span class="chip">Jouw gegevens uit een datalek</span>
       <span class="chip">Een "veilige rekening" die dat niet is</span>
     </div>
-    <p style="margin-top:16px">En het pijnlijkste? De meeste slachtoffers vertellen het uit schaamte aan niemand. Kinderen ontdekken het pas weken later — als het spaargeld weg is en terughalen niet meer kan.</p>
+    <p>En het pijnlijkste? De meeste slachtoffers vertellen het uit schaamte aan niemand. Kinderen ontdekken het pas weken later — als het spaargeld weg is en terughalen niet meer kan.</p>
   </div>
 </section>
 
 <!-- ================= HOE HET WERKT ================= -->
 <section class="wrap-wide" id="hoe-het-werkt">
-  <div class="wrap" style="max-width:none;padding:0">
+  <div class="intro">
     <span class="eyebrow">Hoe het werkt</span>
     <h2>Een rookmelder voor de bankrekening.</h2>
   </div>
@@ -373,7 +430,7 @@
   <p>Geen enkele app houdt elke oplichter tegen — wie dat belooft, liegt. Oplichting is bijna nooit één overboeking, maar een reeks: eerst een klein testbedrag, dan de grote klappen, vaak dagenlang. Daar zit 80–90% van de schade.</p>
   <div class="promise">
     <p><strong>Onze belofte: als de eerste overboeking ons ontglipt, zorgen we dat het ook de laatste is.</strong></p>
-    <p style="margin-top:.5em;font-size:.95rem">En snel alarm betekent dat de bank de rekening van de crimineel soms nog kan bevriezen — elke minuut telt.</p>
+    <p style="font-size:.95rem">En snel alarm betekent dat de bank de rekening van de crimineel soms nog kan bevriezen — elke minuut telt.</p>
   </div>
 </section>
 
@@ -389,13 +446,13 @@
       <span class="chip">Geen uitgaven</span>
       <span class="chip">Geen transacties</span>
     </div>
-    <p style="margin-top:16px">Je moeder houdt haar privacy. Jij krijgt je gemoedsrust.</p>
+    <p>Je moeder houdt haar privacy. Jij krijgt je gemoedsrust.</p>
   </div>
 </section>
 
 <!-- ================= VERTROUWEN / VEILIGHEID ================= -->
 <section class="wrap-wide" id="veiligheid">
-  <div class="wrap" style="max-width:none;padding:0">
+  <div class="intro">
     <span class="eyebrow">Veiligheid voorop</span>
     <h2>Zo houden we het veilig.</h2>
   </div>
@@ -461,7 +518,7 @@
     <h2>Minder dan een boeket bloemen.</h2>
     <p class="price">€9,95 per maand</p>
     <p>Deel het abonnement met je broers en zussen — bescherming voor beide ouders vanaf €14,95. Opzegbaar per maand.</p>
-    <p style="margin-top:.8em;font-size:.9rem">Ter vergelijking: het gemiddelde slachtoffer van bankhelpdeskfraude verliest duizenden euro's. Vaak het spaargeld van een leven.</p>
+    <p style="font-size:.9rem">Ter vergelijking: het gemiddelde slachtoffer van bankhelpdeskfraude verliest duizenden euro's. Vaak het spaargeld van een leven.</p>
 
     <form id="waitlist-form" action="https://formspree.io/f/xvzekdrd" method="POST">
       <input type="hidden" name="_next" value="https://seintje-app.nl/#bedankt">
@@ -541,6 +598,26 @@
     </div>
   </div>
 </footer>
+
+<!-- ================= PERSISTENT MOBILE CTA ================= -->
+<!-- Only rendered on narrow viewports (see .sticky-cta CSS); auto-hides once #aanmelden itself is in view. -->
+<div class="sticky-cta" id="sticky-cta">
+  <a class="cta" href="#aanmelden">Zet mij op de wachtlijst</a>
+</div>
+
+<script>
+(function(){
+  var bar = document.getElementById('sticky-cta');
+  var target = document.getElementById('aanmelden');
+  if(!bar || !target || !('IntersectionObserver' in window)) return;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      bar.classList.toggle('is-hidden', entry.isIntersecting);
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  observer.observe(target);
+})();
+</script>
 
 </body>
 </html>
