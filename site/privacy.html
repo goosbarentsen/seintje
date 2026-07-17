@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Privacybeleid — Seintje</title>
+<meta name="description" content="Privacybeleid voor de Seintje-wachtlijst: welke gegevens we verzamelen, waarvoor, en hoe lang.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:light only;
+    --ink:#16242E;
+    --ink-soft:#374B57;
+    --paper:#FBFCFC;
+    --pine:#1C4B60;
+    --pine-deep:#123647;
+    --tint:#EBF2F5;
+    --amber:#E2A23F;
+    --line:#D6E1E7;
+    --radius:14px;
+    --maxw:660px;
+    --maxw-wide:980px;
+    --nav-h:68px;
+
+    --space-1:4px;
+    --space-2:8px;
+    --space-3:12px;
+    --space-4:16px;
+    --space-5:24px;
+    --space-6:32px;
+    --space-7:48px;
+    --space-9:96px;
+
+    --gutter:clamp(var(--space-4), 5vw, var(--space-6));
+    --section-y:clamp(var(--space-6), 8vw, var(--space-9));
+    --heading-gap:var(--space-3);
+    --para-gap:var(--space-4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;background:#FBFCFC}
+  body{
+    font-family:'Instrument Sans',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    font-size:18px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap,.wrap-wide{
+    margin:0 auto;
+    padding-left:calc(var(--gutter) + env(safe-area-inset-left));
+    padding-right:calc(var(--gutter) + env(safe-area-inset-right));
+  }
+  .wrap{max-width:var(--maxw)}
+  .wrap-wide{max-width:var(--maxw-wide)}
+
+  h1,h2{font-family:'Newsreader',serif;font-weight:600;line-height:1.22;letter-spacing:-0.01em}
+  h1{font-size:clamp(1.8rem,5.5vw,2.4rem);margin-bottom:var(--space-2)}
+  h2{font-size:clamp(1.25rem,3.5vw,1.5rem);margin-bottom:var(--heading-gap)}
+  p{color:var(--ink-soft);hyphens:auto;-webkit-hyphens:auto}
+  a{color:inherit}
+
+  .updated{font-size:.92rem;color:var(--ink-soft);margin-bottom:var(--space-7)}
+
+  /* ---------- brand mark (shared: nav + footer) ---------- */
+  .brand{font-family:'Newsreader',serif;font-weight:600;font-size:1.2rem;color:var(--pine-deep);
+    display:inline-flex;align-items:center;gap:var(--space-2);text-decoration:none}
+  .brand .dot{color:var(--amber)}
+  .brand svg{flex:none}
+
+  /* ---------- nav ---------- */
+  .nav{
+    padding-top:env(safe-area-inset-top);
+    background:rgba(251,252,252,.9);
+    -webkit-backdrop-filter:saturate(180%) blur(10px);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  @media (min-width:700px){
+    .nav{position:sticky;top:0;z-index:100}
+  }
+  .nav-inner{
+    height:var(--nav-h);
+    display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
+  }
+  .nav-cta{
+    display:inline-flex;align-items:center;justify-content:center;min-height:var(--space-7);
+    background:var(--pine-deep);color:#fff;font-weight:700;font-size:.85rem;
+    padding:var(--space-2) var(--space-4);border-radius:999px;text-decoration:none;white-space:nowrap;
+    box-shadow:0 2px 0 rgba(18,54,71,.22);transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,54,71,.2)}
+  .nav-cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+  /* ---------- content ---------- */
+  main{padding:var(--section-y) 0}
+  main p + p{margin-top:var(--para-gap)}
+  main section + section{margin-top:var(--space-7)}
+  main > p + section{margin-top:var(--space-7)}
+  main a{color:var(--pine-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  main a:hover{color:var(--pine)}
+  main a:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:3px}
+
+  /* ---------- footer ---------- */
+  .footer{
+    background:var(--tint);border-top:1px solid var(--line);
+    padding:var(--section-y) 0 calc(var(--space-6) + env(safe-area-inset-bottom));
+  }
+  .footer-grid{display:grid;grid-template-columns:1fr;gap:var(--space-6)}
+  @media (min-width:700px){
+    .footer-grid{grid-template-columns:1.4fr 1fr 1fr}
+  }
+  .footer-col h4{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--pine);margin-bottom:var(--heading-gap)}
+  .footer-col p{font-size:.92rem;color:var(--ink-soft);margin:0}
+  .footer-col p+p{margin-top:var(--para-gap)}
+  .footer-col a{text-decoration:none;font-weight:600;color:var(--pine-deep);display:inline-block;padding:var(--space-3) 0}
+  .footer-col a:hover{text-decoration:underline}
+  .footer-col a:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:3px}
+  .footer-brand .brand{margin-bottom:var(--space-2)}
+  .footer-brand p{max-width:32em}
+
+  @media (prefers-color-scheme:dark){
+    html,body{background:#FBFCFC !important;color:#16242E !important}
+    .nav{background:rgba(251,252,252,.9) !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner wrap-wide">
+    <a class="brand" href="index.html" aria-label="Seintje — naar de homepage">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="17" r="3.2" fill="#123647"/><path d="M6.5 11.5a7 7 0 0 1 11 0" stroke="#123647" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5 8a11.5 11.5 0 0 1 17 0" stroke="#E2A23F" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Seintje<span class="dot">.</span>
+    </a>
+    <a class="nav-cta" href="index.html#aanmelden">Op de wachtlijst</a>
+  </div>
+</nav>
+
+<!-- ================= CONTENT ================= -->
+<main class="wrap">
+  <h1>Privacybeleid Seintje (wachtlijst)</h1>
+  <p class="updated">Laatst bijgewerkt: 17 juli 2026</p>
+
+  <p>Seintje is in ontwikkeling. Deze website dient om belangstelling te peilen via een wachtlijst. Dit beleid gaat over wat we in deze fase met je gegevens doen. Zodra de app bestaat, krijgt die een eigen, uitgebreider privacybeleid.</p>
+
+  <section>
+    <h2>Welke gegevens we verzamelen</h2>
+    <p>Alleen wat je zelf invult op het wachtlijstformulier: je e-mailadres en je antwoord op de vraag wiens rekening je wilt beschermen (moeder/vader/beiden/iemand anders). Meer niet. We plaatsen geen tracking- of advertentiecookies.</p>
+  </section>
+
+  <section>
+    <h2>Waarvoor we ze gebruiken</h2>
+    <p>Om je te informeren over de lancering van Seintje en je eventueel uit te nodigen om als testfamilie mee te doen. Niet voor nieuwsbrieven, niet voor iets anders, en we verkopen of delen je gegevens nooit met derden voor hun eigen doeleinden.</p>
+  </section>
+
+  <section>
+    <h2>Wie de gegevens verwerkt</h2>
+    <p>Het formulier wordt technisch afgehandeld door Formspree, onze formulierverwerker. Daarnaast staan de gegevens in onze eigen mailbox. Er zijn geen andere ontvangers.</p>
+  </section>
+
+  <section>
+    <h2>Hoe lang we ze bewaren</h2>
+    <p>Tot de lancering van Seintje, of tot je aangeeft van de wachtlijst af te willen — wat eerder komt. Afmelden kan altijd met één mailtje.</p>
+  </section>
+
+  <section>
+    <h2>Jouw rechten</h2>
+    <p>Je mag je gegevens inzien, laten corrigeren of laten verwijderen. Mail daarvoor naar <a href="mailto:info@seintje-app.nl">info@seintje-app.nl</a> — je krijgt antwoord van de oprichter zelf. Ben je niet tevreden over hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de Autoriteit Persoonsgegevens.</p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>Seintje · <a href="mailto:info@seintje-app.nl">info@seintje-app.nl</a></p>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap-wide footer-grid">
+    <div class="footer-col footer-brand">
+      <a class="brand" href="index.html" aria-label="Seintje — naar de homepage">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="17" r="3.2" fill="#123647"/><path d="M6.5 11.5a7 7 0 0 1 11 0" stroke="#123647" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5 8a11.5 11.5 0 0 1 17 0" stroke="#E2A23F" stroke-width="2.2" stroke-linecap="round"/></svg>
+        Seintje<span class="dot">.</span>
+      </a>
+      <p>Seintje wordt gebouwd in Nederland, vanuit een simpele overtuiging: niemand zou het spaargeld van zijn ouders aan een oplichter moeten verliezen.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Vragen of meedenken?</p>
+      <p><a href="mailto:info@seintje-app.nl">info@seintje-app.nl</a></p>
+      <p style="font-size:.85rem">Je krijgt antwoord van de oprichter zelf.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Juridisch</h4>
+      <p><a href="privacy.html">Privacybeleid</a></p>
+      <p><a href="#" title="Volgt binnenkort">Algemene voorwaarden</a></p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

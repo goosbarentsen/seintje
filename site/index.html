@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<title>Seintje — Weet het meteen als je vader of moeder geld overmaakt naar een oplichter</title>
+<title>Seintje — Weet het zodra je vader of moeder geld overmaakt naar een oplichter</title>
 <meta name="description" content="Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen bij verdachte overboekingen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -297,6 +297,25 @@
   .bank-list{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--para-gap)}
   .bank-list .chip{color:var(--ink-soft);font-weight:600}
 
+  /* ---------- FAQ: native details/summary, styled as cards ---------- */
+  .faq{display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-2)}
+  .faq details{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:var(--card-pad);box-shadow:0 3px 18px rgba(28,43,39,.05);
+  }
+  .faq summary{
+    cursor:pointer;font-weight:600;color:var(--ink);list-style:none;
+    display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{
+    content:"+";font-size:1.4rem;font-weight:400;color:var(--pine);flex:none;line-height:1;
+    transition:transform .15s ease;
+  }
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+  .faq details p{margin-top:var(--para-gap);font-size:.98rem}
+
   /* ---------- form ---------- */
   .signup{background:var(--pine-deep);color:#F2F6F4;border-radius:var(--radius);
     padding:var(--card-pad-lg);margin:var(--space-2) 0 var(--space-5);box-shadow:0 8px 28px rgba(18,54,71,.18)}
@@ -358,6 +377,7 @@
     <ul class="nav-links">
       <li><a href="#hoe-het-werkt">Hoe het werkt</a></li>
       <li><a href="#veiligheid">Veiligheid</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#aanmelden">Prijs</a></li>
     </ul>
     <a class="nav-cta" href="#aanmelden">Op de wachtlijst</a>
@@ -366,10 +386,10 @@
 
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
-  <h1>Krijg direct een seintje als je vader of moeder geld overmaakt naar een oplichter.</h1>
+  <h1>Krijg een seintje zodra je vader of moeder geld overmaakt naar een oplichter.</h1>
   <p class="sub">Oplichters praten ouderen aan de telefoon naar hun spaargeld. Seintje waakt over de bankrekening van je ouders — de app kan alleen meekijken, nooit aan het geld komen — en waarschuwt jou én hen zodra er iets ongebruikelijks gebeurt. Zodat één telefoontje van jou de oplichter stopt.</p>
   <a class="cta" href="#aanmelden" id="hero-cta">Zet mij op de wachtlijst</a>
-  <p class="micro">Gratis en vrijblijvend. We lanceren binnenkort met een kleine groep families.</p>
+  <p class="micro">We lanceren binnenkort met een kleine groep families.</p>
 
   <!-- signatuur: het moment dat de betovering breekt -->
   <div class="moment" aria-label="Voorbeeld van de dubbele waarschuwing">
@@ -442,7 +462,7 @@
         <span class="step-num" aria-hidden="true">2</span>
       </div>
       <h3>Seintje waakt op de achtergrond</h3>
-      <p>De app herkent de patronen van oplichting: een groot bedrag naar een onbekende rekening, meerdere snelle overboekingen, een plots verhoogde daglimiet. 99% van de tijd merk je er niets van.</p>
+      <p>De app herkent de patronen van oplichting: een groot bedrag naar een onbekende rekening, meerdere snelle overboekingen achter elkaar, of een geldopname die nergens op lijkt. Vrijwel altijd merk je er niets van.</p>
     </div>
     <div class="step-card">
       <div class="step-icon">
@@ -452,7 +472,7 @@
         </svg>
         <span class="step-num" aria-hidden="true">3</span>
       </div>
-      <h3>Bij onraad: jullie weten het allebei meteen</h3>
+      <h3>Bij onraad: jullie krijgen allebei tegelijk een seintje</h3>
       <p>Je ouder krijgt een waarschuwing op het eigen scherm, en jij een seintje: <strong>"Bel je ouder nu even."</strong> Zo sta je náást je ouder, ook als je er niet bent.</p>
     </div>
   </div>
@@ -532,7 +552,7 @@
         </svg>
       </div>
       <h3>Werkt bij alle grote banken</h3>
-      <p>Ook met een kaartlezer, zonder smartphone.</p>
+      <p>Geen smartphone? Koppelen kan ook met de kaartlezer van de bank, en de waarschuwing gaat dan via sms of alleen naar jou.</p>
       <div class="bank-list">
         <span class="chip">ING</span>
         <span class="chip">Rabobank</span>
@@ -543,6 +563,41 @@
         <span class="chip">Triodos</span>
       </div>
     </div>
+    <div class="trust-card">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="2"/>
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 10v2h2"/>
+        </svg>
+      </div>
+      <h3>Weinig data, weinig risico</h3>
+      <p>Eerlijk is eerlijk: geen enkel bedrijf kan een lek 100% uitsluiten — wie dat belooft, liegt. Daarom is onze belangrijkste beveiliging dat we zo min mogelijk bewaren. Inloggegevens van de bank zien we nooit (inloggen gebeurt bij de bank zelf), we bewaren geen doorlopend archief van transacties, en wat we wél bewaren staat versleuteld op servers in de EU. Als er weinig in de kluis ligt, valt er weinig te stelen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="wrap" id="faq">
+  <span class="eyebrow">FAQ</span>
+  <h2>Veelgestelde vragen.</h2>
+  <div class="faq">
+    <details>
+      <summary>Wat als mijn vader of moeder dit niet wil?</summary>
+      <p>Dan gebeurt er niets — je ouder beslist, niet jij. Seintje werkt alleen als je ouder zelf toestemming geeft, en die kan elk moment worden ingetrokken. Ons advies: begin het gesprek niet met "ik wil meekijken", maar met wat het echt is — een schild dat afgaat bij oplichters, terwijl saldo en uitgaven privé blijven. De meeste ouders willen geen oppas, maar wél een alarm.</p>
+    </details>
+    <details>
+      <summary>Kunnen jullie bij het geld van mijn ouders?</summary>
+      <p>Nee. Technisch onmogelijk. De koppeling kan alleen kijken, nooit iets doen — geen overboekingen, geen betalingen, geen wijzigingen. Ook wij als makers kunnen dat niet.</p>
+    </details>
+    <details>
+      <summary>Hoe weet ik dat onze gegevens bij jullie veilig zijn?</summary>
+      <p>Vooral doordat we bijna niets bewaren. Bankinloggegevens zien we nooit (inloggen gebeurt bij de bank zelf), er is geen doorlopend transactiearchief, en het weinige dat we bewaren staat versleuteld op servers in de EU en wordt nooit verkocht of gedeeld. Geen enkel bedrijf kan een lek volledig uitsluiten — maar waar weinig ligt, valt weinig te halen.</p>
+    </details>
+    <details>
+      <summary>Wat zie ik als kind precies?</summary>
+      <p>Alleen het seintje: dat er iets ongebruikelijks gebeurt en dat je even moet bellen. Geen saldo, geen uitgaven, geen transacties. De privacy van je ouder blijft volledig intact — dat is bewust zo ontworpen.</p>
+    </details>
   </div>
 </section>
 
@@ -552,7 +607,7 @@
     <span class="eyebrow" style="color:#9CC8DE">Wachtlijst</span>
     <h2>Minder dan een boeket bloemen.</h2>
     <p class="price">€9,95 per maand</p>
-    <p>Deel het abonnement met je broers en zussen — bescherming voor beide ouders vanaf €14,95. Opzegbaar per maand.</p>
+    <p>Deel het abonnement met je broers en zussen — bescherming voor beide ouders voor €14,95. Opzegbaar per maand.</p>
     <p style="font-size:.9rem">Ter vergelijking: het gemiddelde slachtoffer van bankhelpdeskfraude verliest duizenden euro's. Vaak het spaargeld van een leven.</p>
 
     <form id="waitlist-form" action="https://formspree.io/f/xvzekdrd" method="POST">
@@ -628,8 +683,8 @@
     </div>
     <div class="footer-col">
       <h4>Juridisch</h4>
-      <p><a href="#">Privacybeleid</a></p>
-      <p><a href="#">Algemene voorwaarden</a></p>
+      <p><a href="privacy.html">Privacybeleid</a></p>
+      <p><a href="#" title="Volgt binnenkort">Algemene voorwaarden</a></p>
     </div>
   </div>
 </footer>
