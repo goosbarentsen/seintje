@@ -31,8 +31,10 @@ async function fetchAllTransactions(config, uid) {
   return all;
 }
 
+// credit_debit_indicator is "CRDT" (money in) or "DBIT" (money out) in the real API -
+// confirmed against live sandbox data, not just the docs summary.
 function pickCounterparty(tx) {
-  const isDebit = tx.credit_debit_indicator === 'DBTR';
+  const isDebit = tx.credit_debit_indicator === 'DBIT';
   return {
     party: isDebit ? tx.creditor : tx.debtor,
     account: isDebit ? tx.creditor_account : tx.debtor_account,
@@ -43,11 +45,17 @@ function looksLikeIban(value) {
   return typeof value === 'string' && /^[A-Z]{2}\d{2}[A-Z0-9]{4,30}$/.test(value.replace(/\s+/g, ''));
 }
 
+// Real account identifier shape is {iban, other: {identification, scheme_name, issuer}} -
+// not the flat {identification, scheme_name} the docs summary implied. Confirmed against
+// live sandbox data (611 transactions, scheme_names seen: OTHI, BANK, CPAN).
 function hasCounterpartyIban(tx) {
   const { account } = pickCounterparty(tx);
-  if (!account || !account.identification) return false;
-  if (account.scheme_name && account.scheme_name.toUpperCase() === 'IBAN') return true;
-  return looksLikeIban(account.identification);
+  if (!account) return false;
+  if (account.iban && looksLikeIban(account.iban)) return true;
+  const other = account.other;
+  if (!other || !other.identification) return false;
+  if (other.scheme_name && other.scheme_name.toUpperCase() === 'IBAN') return true;
+  return looksLikeIban(other.identification);
 }
 
 function hasCounterpartyName(tx) {
