@@ -1,0 +1,14 @@
+{
+  "name": "seintje-eb-sandbox",
+  "private": true,
+  "type": "module",
+  "description": "Exploration tool for the Enable Banking sandbox API. Not app code - no detection engine, no database.",
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "scripts": {
+    "banks": "node src/banks.js",
+    "connect": "node src/connect.js",
+    "explore": "node src/explore.js"
+  }
+}

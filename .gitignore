@@ -25,3 +25,8 @@ pnpm-debug.log*
 dist/
 build/
 .cache/
+
+# Secrets - never commit private keys or sandbox output
+*.pem
+*.key
+/sandbox/output/

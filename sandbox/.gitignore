@@ -1,0 +1,7 @@
+# Local copy for visibility - the repo-root .gitignore already covers these,
+# but this makes the boundary obvious when working inside /sandbox directly.
+.env
+*.pem
+*.key
+output/
+node_modules/
