@@ -16,13 +16,8 @@ We bouwen nog geen app, detectie-engine of bankkoppeling. Deze fase draait om he
 seintje/
 ├── README.md          — dit bestand
 ├── .gitignore
-├── site/               — de landingspagina, gepubliceerd via GitHub Pages
-│   └── index.html
-└── docs/               — planningsdocumenten (lokaal, niet in git)
-    ├── ondernemingsplan.md          — businessplan
-    ├── detectiespecificatie.md      — fraudedetectie-logica (v1.0)
-    ├── gespreksleidraad-interviews.md — leidraad voor de 15 validatie-interviews
-    └── wervingsberichten.md          — werving/ad-copy en opvolgmail voor interviewkandidaten
+└── site/               — de landingspagina, gepubliceerd via GitHub Pages
+    └── index.html
 ```
 
-`docs/` staat in `.gitignore` en wordt dus niet meegepusht naar GitHub — het bevat businessplan, prijsstelling en detectielogica die niet publiek hoeven te zijn zolang de site wél publiek is voor GitHub Pages.
+De planningsdocumenten (businessplan, detectiespecificatie, DPIA, werkdocument & beslislog, interview- en wervingsmateriaal) staan niet in dit repo. Ze leven in een apart, privé, lokaal repo — `~/Developer/seintje-docs` — zodat ze nooit per ongeluk meegepusht kunnen worden naar GitHub Pages, dat wél publiek is.
