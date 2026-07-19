@@ -5,7 +5,7 @@ Seintje is a Dutch service that watches over the bank account of someone you lov
 
 **Mission:** prevent fraud against the elderly as much as possible and give families a form of financial care that doesn't exist today. The origin is personal: the founder is authorized (gemachtigd) on his grandfather's account and lives the problem — access without time makes it worse; attention is the scarce good.
 
-**Source of truth:** `/docs/businessplan-seintje.md` is the compass — read it before non-trivial work. `/docs/detectiespecificatie.md` specifies the detection engine. The operational log (werkdocument) records every decision and its reason. If code or copy conflicts with the business plan, the plan wins; if you think the plan is wrong, raise it as a question to the founder instead of silently deviating.
+**Source of truth:** `/docs/businessplan-seintje.md` is the compass — read it before non-trivial work. `/docs/detectiespecificatie.md` specifies the detection engine. `/docs/dpia-seintje.md` is the data-protection impact assessment (draft, needs lawyer sign-off — see its own open-items list). The operational log (werkdocument) records every decision and its reason. If code or copy conflicts with the business plan, the plan wins; if you think the plan is wrong, raise it as a question to the founder instead of silently deviating.
 
 ## Product principles (from the plan — do not violate in any copy or code)
 1. **View-only, provably.** The connection can only look, never act. This is both architecture and the core trust message ("meekijken, nooit aankomen").
@@ -17,7 +17,7 @@ Seintje is a Dutch service that watches over the bank account of someone you lov
 ## Audience
 Buyer: the adult child, 30–60, digitally capable, worried, price-insensitive (fear + guilt). User: the independently banking senior, 65+, with savings. Positioning: message narrow (the fake bank employee story), product broad (investment/WhatsApp/dating fraud + the small things — the story after the click).
 
-## Current phase and gates (from roadmap §14 — update this block as reality moves)
+## Current phase and gates (from roadmap §15 — update this block as reality moves)
 Pre-revenue, founder solo next to a fulltime job, funded from own means. Site live at seintje-app.nl (waitlist). Sandbox connection with Enable Banking works, tested against real transaction data. Business plan v1.0 written and founder-edited. Detectiespecificatie now v1.2 (R5 known-IBAN severity exception, added 2026-07-19). Interviews paused by founder decision (guide ready in /docs).
 - **Backtest on synthetic data: done (2026-07-19).** Both go/no-go norms passed — 0.00 false alarms/family/month (≤1 target) and 8/8 real scam scenarios caught as HARD alarm. Code + dataset live in a separate local/private repo (`~/Developer/seintje-backtest`, not the public site repo — same confidentiality reasoning as `/docs`).
 - **Next up:** the spec's own §7 still calls for a backtest on *real* pilot-family transaction data (not synthetic) before go-live — that's the remaining validation step, once pilot families are onboarded.
