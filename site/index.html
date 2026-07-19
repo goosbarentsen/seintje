@@ -96,17 +96,18 @@
   .brand .dot{color:var(--amber)}
   .brand svg{flex:none}
 
-  /* ---------- nav: sticky only from tablet width up (mobile has its own persistent bottom CTA) ---------- */
+  /* ---------- nav: sticky everywhere; on mobile it also hides on scroll-down and slides back on scroll-up ---------- */
   .nav{
-    position:relative;
+    position:sticky;top:0;z-index:100;
     padding-top:env(safe-area-inset-top);
     background:rgba(251,252,252,.9);
     -webkit-backdrop-filter:saturate(180%) blur(10px);
     backdrop-filter:saturate(180%) blur(10px);
     border-bottom:1px solid var(--line);
+    transition:transform .25s ease;
   }
-  @media (min-width:700px){
-    .nav{position:sticky;top:0;z-index:100}
+  @media (max-width:699px){
+    .nav.is-hidden{transform:translateY(-100%)}
   }
   .nav-inner{
     height:var(--nav-h);
@@ -216,7 +217,7 @@
   @media (prefers-reduced-motion:reduce){
     .alert,.thread{animation:none}
     html{scroll-behavior:auto}
-    .float-cta{transition:none}
+    .float-cta,.nav{transition:none}
   }
 
   /* ---------- persistent mobile CTA: floats over content, hidden until past the hero CTA and again once the real form is in view ---------- */
@@ -460,6 +461,40 @@
   window.addEventListener('resize', function(){
     if(window.innerWidth >= 700) closeMenu();
   });
+})();
+</script>
+
+<script>
+(function(){
+  var nav = document.querySelector('.nav');
+  var menu = document.getElementById('nav-menu');
+  if(!nav) return;
+
+  var lastY = window.scrollY;
+  var ticking = false;
+
+  function onScroll(){
+    ticking = false;
+    if(window.innerWidth >= 700){ nav.classList.remove('is-hidden'); return; }
+    if(menu && menu.classList.contains('is-open')) return;
+
+    var y = window.scrollY;
+    if(y <= nav.offsetHeight){
+      nav.classList.remove('is-hidden');
+    } else if(y > lastY){
+      nav.classList.add('is-hidden');
+    } else if(y < lastY){
+      nav.classList.remove('is-hidden');
+    }
+    lastY = y;
+  }
+
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, {passive:true});
 })();
 </script>
 
