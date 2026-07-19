@@ -1,6 +1,3 @@
-# Planning docs — kept local only, not published to the public repo
-/docs/
-
 # Claude Code
 .claude/credentials.json
 
