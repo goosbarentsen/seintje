@@ -18,8 +18,9 @@ Seintje is a Dutch service that watches over the bank account of someone you lov
 Buyer: the adult child, 30–60, digitally capable, worried, price-insensitive (fear + guilt). User: the independently banking senior, 65+, with savings. Positioning: message narrow (the fake bank employee story), product broad (investment/WhatsApp/dating fraud + the small things — the story after the click).
 
 ## Current phase and gates (from roadmap §14 — update this block as reality moves)
-Pre-revenue, founder solo next to a fulltime job, funded from own means. Site live at seintje-app.nl (waitlist). Sandbox connection with Enable Banking works, tested against real transaction data. Business plan v1.0 written and founder-edited. Interviews paused by founder decision (guide ready in /docs).
-- **Next up:** backtest of detection rules on exported real data + ten simulated scam scenarios. Go/no-go norms: ≤1 false alarm/family/month, ≥8/10 scenarios caught.
+Pre-revenue, founder solo next to a fulltime job, funded from own means. Site live at seintje-app.nl (waitlist). Sandbox connection with Enable Banking works, tested against real transaction data. Business plan v1.0 written and founder-edited. Detectiespecificatie now v1.2 (R5 known-IBAN severity exception, added 2026-07-19). Interviews paused by founder decision (guide ready in /docs).
+- **Backtest on synthetic data: done (2026-07-19).** Both go/no-go norms passed — 0.00 false alarms/family/month (≤1 target) and 8/8 real scam scenarios caught as HARD alarm. Code + dataset live in a separate local/private repo (`~/Developer/seintje-backtest`, not the public site repo — same confidentiality reasoning as `/docs`).
+- **Next up:** the spec's own §7 still calls for a backtest on *real* pilot-family transaction data (not synthetic) before go-live — that's the remaining validation step, once pilot families are onboarded.
 - **Gate 1 (target ~month 3):** market + tech validation green → BV incorporation, MVP build starts (hired fintech freelancer builds, founder is product owner; no cofounder before traction).
 - **Gate 2 (target ~month 6):** pilot norms met → paid launch, first paying customer.
 - **Do NOT build** production app code, backend, database, or notification systems before Gate 1 is explicitly passed by the founder. The `/sandbox` exploration tool is the only code allowed pre-gate.
