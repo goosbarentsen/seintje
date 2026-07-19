@@ -98,6 +98,7 @@
 
   /* ---------- nav: sticky only from tablet width up (mobile has its own persistent bottom CTA) ---------- */
   .nav{
+    position:relative;
     padding-top:env(safe-area-inset-top);
     background:rgba(251,252,252,.9);
     -webkit-backdrop-filter:saturate(180%) blur(10px);
@@ -126,8 +127,39 @@
   }
   .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(18,54,71,.2)}
   .nav-cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+  .nav-actions{display:flex;align-items:center;gap:var(--space-3)}
+
+  /* ---------- mobile nav toggle + dropdown: same links as .nav-links, shown below 700px ---------- */
+  .nav-toggle{
+    display:inline-flex;align-items:center;justify-content:center;flex:none;
+    width:var(--space-7);height:var(--space-7);margin-right:calc(var(--space-2) * -1);
+    background:none;border:none;padding:0;color:var(--pine-deep);cursor:pointer;position:relative;
+  }
+  .nav-toggle svg{position:absolute;width:22px;height:22px;transition:opacity .15s ease,transform .15s ease}
+  .nav-toggle .icon-close{opacity:0;transform:scale(.7) rotate(-45deg)}
+  .nav-toggle[aria-expanded="true"] .icon-menu{opacity:0;transform:scale(.7) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] .icon-close{opacity:1;transform:scale(1) rotate(0)}
+  .nav-toggle:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:8px}
+
+  .nav-menu{
+    display:none;flex-direction:column;
+    position:absolute;top:100%;left:0;right:0;z-index:95;
+    padding:var(--space-2) var(--gutter) calc(var(--space-4) + env(safe-area-inset-bottom));
+    background:var(--paper);border-bottom:1px solid var(--line);
+    box-shadow:0 16px 32px rgba(18,54,71,.12);
+  }
+  .nav-menu.is-open{display:flex}
+  .nav-menu a{
+    display:flex;align-items:center;min-height:var(--space-7);
+    color:var(--ink-soft);text-decoration:none;font-weight:600;font-size:1.02rem;
+    border-top:1px solid var(--line);
+  }
+  .nav-menu a:hover{color:var(--pine-deep)}
+  .nav-menu a:focus-visible{outline:3px solid var(--amber);outline-offset:-3px}
+
   @media (min-width:700px){
     .nav-links{display:flex}
+    .nav-toggle,.nav-menu{display:none !important}
   }
 
   /* ---------- hero ---------- */
@@ -380,9 +412,56 @@
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#aanmelden">Prijs</a></li>
     </ul>
-    <a class="nav-cta" href="#aanmelden">Zet mij op de wachtlijst</a>
+    <div class="nav-actions">
+      <a class="nav-cta" href="#aanmelden">Zet mij op de wachtlijst</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu openen">
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="nav-menu" id="nav-menu">
+    <a href="#hoe-het-werkt">Hoe het werkt</a>
+    <a href="#veiligheid">Veiligheid</a>
+    <a href="#faq">FAQ</a>
+    <a href="#aanmelden">Prijs</a>
   </div>
 </nav>
+
+<script>
+(function(){
+  var toggle = document.getElementById('nav-toggle');
+  var menu = document.getElementById('nav-menu');
+  if(!toggle || !menu) return;
+
+  function closeMenu(){
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded','false');
+  }
+  function openMenu(){
+    menu.classList.add('is-open');
+    toggle.setAttribute('aria-expanded','true');
+  }
+
+  toggle.addEventListener('click', function(){
+    if(menu.classList.contains('is-open')){ closeMenu(); } else { openMenu(); }
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(!menu.classList.contains('is-open')) return;
+    if(menu.contains(e.target) || toggle.contains(e.target)) return;
+    closeMenu();
+  });
+  window.addEventListener('resize', function(){
+    if(window.innerWidth >= 700) closeMenu();
+  });
+})();
+</script>
 
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
