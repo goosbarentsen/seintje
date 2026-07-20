@@ -313,12 +313,14 @@
   .pattern-scroller::after{right:0;background:linear-gradient(to left,var(--paper),transparent)}
   .pattern-carousel{
     display:flex;gap:var(--space-4);overflow-x:auto;scroll-snap-type:x mandatory;
-    padding:var(--space-1) var(--space-1) var(--space-3);-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    padding:var(--space-1) max(var(--gutter), calc(50% - 110px)) var(--space-3);
+    scroll-padding-inline:max(var(--gutter), calc(50% - 110px));
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
   }
   .pattern-carousel::-webkit-scrollbar{display:none}
   .pattern-carousel:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:8px}
   .pattern-card{
-    scroll-snap-align:start;flex:0 0 auto;width:220px;
+    scroll-snap-align:center;flex:0 0 auto;width:220px;
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
     padding:var(--space-4);box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
