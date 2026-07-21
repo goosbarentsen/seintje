@@ -2,7 +2,7 @@
 
 Seintje is een Nederlandse consumenten-app die waakt over de bankrekening van een oudere ouder (70+) en zowel de senior als hun volwassen kind waarschuwt zodra er een patroon van financiële fraude wordt herkend — nep-bankmedewerkers, beleggings-/cryptofraude, WhatsApp-fraude en de "geldkoerier"-truc.
 
-De rekening wordt **alleen-lezen** gekoppeld via PSD2 (dezelfde techniek als budget-apps): Seintje kan meekijken, maar nooit geld overmaken.
+De rekening wordt gekoppeld via PSD2 (dezelfde techniek als budget-apps): Seintje kan alleen meekijken, nooit geld overmaken.
 
 De koper is het bezorgde volwassen kind (45–60); de gebruiker is de ouder (70+).
 
