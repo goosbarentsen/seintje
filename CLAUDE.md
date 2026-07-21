@@ -33,6 +33,9 @@ Pre-revenue, founder solo next to a fulltime job, funded from own means. Site li
 - End substantial sessions with three short lists: done / founder must do (only what AI physically cannot: accounts, payments, emails, calls) / next.
 - Founder reviews on a real phone; his screenshots and judgment are final on visual issues.
 
+## Living documents
+The business plan, detection spec, and werkdocument describe reality and must keep doing so. Whenever new knowledge arrives in a session (research findings, answers from external parties like CCV or Enable Banking, test results, founder decisions) or the project passes a milestone, proactively check whether the relevant document sections are now outdated — and say so: "this new information affects §X, shall I update it?" Don't silently let documents drift from reality, and don't silently rewrite them either: flag, propose, then update after confirmation. Knowledge-sensitive sections (competition, ecosystem, market figures, technical constraints) carry a "laatst geverifieerd: [datum]" stamp; when you touch them, refresh the stamp. If such a section is older than ~3 months when it becomes relevant to a task, flag that it may need re-verification.
+
 ## Hard rules
 1. **Secrets never in git** — private keys (*.pem), .env, credentials. Verify .gitignore before commits; if a secret is inside the repo, stop and report.
 2. **Confidential docs never in a public repo.** The business plan, decision log, and detection spec are competition-sensitive; they belong in the private `~/Developer/seintje-docs` repo, never in the public site repo.
