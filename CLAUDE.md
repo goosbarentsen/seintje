@@ -47,6 +47,7 @@ The business plan, detection spec, and werkdocument describe reality and must ke
 - No jargon. Every sentence must be understood in one read by someone without technical knowledge, and say what it means *for them* ("alleen-lezen" → "de app kan alleen meekijken, nooit aan het geld komen").
 - Core trust image: the window — you see what happens, but you can't get through it. Core product image: the smoke detector for the bank account.
 - Tone: warm, serious, honest. No fairy-tale language, no fear beyond sourced facts. Inclusive: "je vader of moeder" / "je ouder(s)", never only "moeder".
+- **Never suggest or promise that using Seintje leads to (more) compensation from the bank.** The compensation landscape may be described factually — coulance covers only bankhelpdeskfraude, a fast alarm improves the chance of recovering money that is still traceable, breaking the scam sequence protects the "eens gewaarschuwd" claim on the first payment — and nothing beyond that. Whether a family gets money back is the bank's and Kifid's call, never ours to imply. See businessplan §5 for the three permitted framings.
 - Internal docs and code may use technical terms freely.
 
 ## Technical context
