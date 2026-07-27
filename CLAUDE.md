@@ -41,8 +41,7 @@ The business plan, detection spec, and werkdocument describe reality and must ke
 2. **Confidential docs never in a public repo.** The business plan, decision log, and detection spec are competition-sensitive; they belong in the private `~/Developer/seintje-docs` repo, never in the public site repo.
 3. **Never change price, product name, target group, or brand positioning on your own** — founder decisions.
 4. **No dark patterns, ever.** No fake urgency, no pre-checked boxes, no hidden conditions. Trust is the entire product.
-5. **>50% founder ownership is a hard constraint** in anything touching equity, funding, or partnership drafts.
-6. **Victim communities are never marketing channels.** We never post, promote, or recruit in slachtoffer-communities or lotgenotengroepen. We may learn from publicly shared stories (patterns, language, scenarios) — anonymised, at pattern level, never quoting or identifying individuals. Research scope is limited to the fraud-related groups only (see link in businessplan §6); other victim groups are off-limits entirely. Partner conversations run via the organisation (e.g. Slachtofferhulp Nederland), never via the community.
+5. **Victim communities are never marketing channels.** We never post, promote, or recruit in slachtoffer-communities or lotgenotengroepen. We may learn from publicly shared stories (patterns, language, scenarios) — anonymised, at pattern level, never quoting or identifying individuals. Research scope is limited to the fraud-related groups only (see link in businessplan §6); other victim groups are off-limits entirely. Partner conversations run via the organisation (e.g. Slachtofferhulp Nederland), never via the community.
 
 ## Language rules (customer-facing Dutch)
 - No jargon. Every sentence must be understood in one read by someone without technical knowledge, and say what it means *for them* ("alleen-lezen" → "de app kan alleen meekijken, nooit aan het geld komen").
