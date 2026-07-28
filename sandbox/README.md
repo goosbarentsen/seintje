@@ -34,7 +34,7 @@ Uses only Node's built-ins (`crypto`, `fetch`, `http`, `readline`, `process.load
 `.env`, `*.pem`, and `sandbox/output/` are all gitignored (both at the repo root and locally in
 this folder) — nothing here should ever get committed.
 
-## The three commands
+## The three sandbox commands
 
 Run these from inside `/sandbox`, in order:
 
@@ -71,6 +71,52 @@ an analysis report answering:
    field structure
 
 A machine-readable version of the same report is saved to `sandbox/output/analysis-report.json`.
+
+## `npm run aggregate` — for real, personal data
+
+The three commands above run against the *sandbox*, where the data is fake and printing an
+example transaction is harmless. This fourth one is different: it is built for a real export of
+a real account (the founder's own, via Tilisy, or later a pilot family's), and it is the only
+sanctioned way to look at such a file.
+
+```sh
+npm run aggregate -- ~/path/to/export.json
+```
+
+It prints counts, dates and percentages to your terminal and nothing else — no amounts, no
+names, no IBANs, no descriptions, and no example transactions. Counterparties are reduced to an
+opaque digest before any grouping happens, so an identity cannot leak even by accident. Nothing
+is written to disk; you read the report and decide yourself what to pass on.
+
+The report covers: history depth (oldest/newest date, span, calendar months covered), freshness
+(how old the newest transaction is), field coverage (counterparty IBAN, counterparty name,
+description, and which of the three date fields are populated), transaction counts per ISO week
+including empty weeks, and the category mix — how many transactions come from a counterparty
+seen in three or more distinct months ("recurring"), how many of those sit at a fixed amount
+(subscription-shaped), and how many are incidental.
+
+Two parts of the report exist to settle questions the raw numbers cannot:
+
+- **Time of day** (section 3). A date field being *populated* is not the same as it carrying a
+  time — a bare date reads as midnight and looks like real data until you check. The report
+  states per date field how many values carry a time at all, how many are not exactly midnight,
+  whether `transaction_date` ever differs from `booking_date`, and, if real times exist, an
+  hour-of-day histogram. If nothing carries a time, it says so plainly.
+- **Coverage per transaction type** (section 4). A single overall IBAN percentage averages
+  together types that answer different questions: card payments have no counterparty IBAN and
+  never needed one. The report breaks coverage down per derived type, then gives the share of
+  *outgoing credit transfers* carrying a counterparty IBAN — the slice where it matters.
+
+Because the code vocabulary differs per bank, section 4 also prints the raw type codes it saw
+with counts. That is how you check the classifier guessed right; if everything lands in
+"unclassified", the classifier in `classify()` needs this bank's codes added.
+
+Accepted input shapes: a bare array of transactions, `{"transactions": [...]}`, or an object
+with an `accounts` array holding either.
+
+**The rule around this file** (CLAUDE.md hard rule 5): personal bank data lives outside the repo
+or in `sandbox/output/`, which is gitignored. It is never opened, read, printed or quoted — only
+scripts touch it, and only aggregates leave the terminal.
 
 ## Errors
 

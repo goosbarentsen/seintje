@@ -9,6 +9,7 @@
   "scripts": {
     "banks": "node src/banks.js",
     "connect": "node src/connect.js",
-    "explore": "node src/explore.js"
+    "explore": "node src/explore.js",
+    "aggregate": "node src/aggregate.js"
   }
 }
