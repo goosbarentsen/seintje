@@ -20,4 +20,4 @@ seintje/
     └── index.html
 ```
 
-De planningsdocumenten (businessplan, detectiespecificatie, DPIA, werkdocument & beslislog, interview- en wervingsmateriaal) staan niet in dit repo. Ze leven in een apart, privé, lokaal repo — `~/Developer/seintje-docs` — zodat ze nooit per ongeluk meegepusht kunnen worden naar GitHub Pages, dat wél publiek is.
+De planningsdocumenten (businessplan, transactie-detectiespecificatie, DPIA, werkdocument & beslislog, interview- en wervingsmateriaal) staan niet in dit repo. Ze leven in een apart, privé, lokaal repo — `~/Developer/seintje-docs` — zodat ze nooit per ongeluk meegepusht kunnen worden naar GitHub Pages, dat wél publiek is.
