@@ -27,3 +27,7 @@ build/
 *.pem
 *.key
 /sandbox/output/
+
+# Vertrouwelijk extern materiaal (prijzen, contracten, decks) hoort in
+# ~/Developer/seintje-docs (prive), nooit in dit publieke repo - harde regel 2
+/docs/
