@@ -346,6 +346,16 @@
   }
   .pattern-foot{font-size:.85rem;color:var(--ink-soft);margin-top:var(--space-3)}
 
+  /* ---------- quiet INFO signals: tinted tiles inside a panel (white-on-white needs no border) ---------- */
+  .signal-grid{display:grid;grid-template-columns:1fr;gap:var(--space-3);margin-top:var(--para-gap)}
+  @media (min-width:640px){
+    .signal-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  .signal{background:var(--tint);border-radius:12px;padding:var(--space-4)}
+  .signal h3{margin-bottom:var(--space-1)}
+  .signal p{font-size:.92rem}
+  .signal-grid + p{margin-top:var(--para-gap)}
+
   /* ---------- quiet honesty note: same footnote rhythm as .sources ---------- */
   .note{
     margin-top:var(--card-pad);padding-top:var(--para-gap);
@@ -713,12 +723,40 @@
 })();
 </script>
 
+<!-- ================= KLEINE DINGEN ================= -->
+<section class="wrap" id="kleine-dingen">
+  <div class="panel">
+    <span class="eyebrow">Meer dan oplichting alleen</span>
+    <h2>Ook voor de kleine dingen.</h2>
+    <p>Grote alarmen bij oplichting. Rustige seintjes voor alles wat sluipt. Seintje let ook op de dingen die je zelf makkelijk mist:</p>
+    <div class="signal-grid">
+      <div class="signal">
+        <h3>Sluipende abonnementen</h3>
+        <p>Een abonnement dat stilletjes duurder wordt, of al maanden doorloopt terwijl niemand het nog gebruikt.</p>
+      </div>
+      <div class="signal">
+        <h3>Dubbele afschrijvingen</h3>
+        <p>Twee keer hetzelfde bedrag aan dezelfde partij, kort na elkaar. Gebeurt vaker dan je denkt.</p>
+      </div>
+      <div class="signal">
+        <h3>Inkomsten die uitblijven</h3>
+        <p>AOW, pensioen of toeslag niet binnengekomen op de verwachte dag? Dan hoor je het.</p>
+      </div>
+      <div class="signal">
+        <h3>Plotselinge kostensprongen</h3>
+        <p>Een vaste last die opeens fors hoger uitvalt — vaak het eerste teken dat er iets mis is.</p>
+      </div>
+    </div>
+    <p>Deze seintjes komen rustig en gebundeld — geen alarm, gewoon een wekelijkse blik die zegt: alles klopt. Zo weet je élke week dat er iemand meekijkt.</p>
+  </div>
+</section>
+
 <!-- ================= BERICHTENCHECK ================= -->
 <section class="wrap" id="berichtencheck">
   <div class="panel">
     <span class="eyebrow">Twijfel je over een bericht?</span>
     <h2>Stuur het door. Wij kijken mee.</h2>
-    <p>Een sms van 'de bank'? Een appje over een pakketje dat je niet verwacht? Een mailtje dat nét echt lijkt? Stuur de tekst of een screenshot naar Seintje, en je hoort direct welke waarschuwingssignalen wij zien — en wat je het beste kunt doen. Ook je vader of moeder kan dit zelf, zo vaak als nodig.</p>
+    <p>Een sms van 'de bank'? Een appje over een pakketje dat je niet verwacht? Een mailtje dat nét echt lijkt? Stuur de tekst of een screenshot naar Seintje, en je hoort direct welke waarschuwingssignalen wij zien — en wat je het beste kunt doen. Ook je vader of moeder kan dit zelf, zo vaak als nodig. De berichtencheck antwoordt meteen — dat kan, omdat jij hem iets stuurt. Een seintje over de rekening komt binnen enkele uren; zo snel als de bank het ons laat zien.</p>
     <p class="note">Eerlijk is eerlijk: Seintje zegt nooit 'dit is veilig'. Oplichters maken berichten die niet van echt te onderscheiden zijn — ook wij kunnen niet in het hoofd van de afzender kijken. Wat we wél doen: eerlijk zeggen wat ons opvalt, en bij twijfel altijd: bel eerst iemand die je vertrouwt.</p>
   </div>
 </section>
