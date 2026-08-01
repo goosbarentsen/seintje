@@ -179,6 +179,15 @@
   .cta:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
   .micro{font-size:.92rem;font-weight:500;margin-top:var(--para-gap);color:var(--ink-soft)}
 
+  /* ---------- inline tekstlink: rustig, mag nooit met de CTA concurreren ---------- */
+  .inline-link{
+    color:var(--pine-deep);font-weight:600;
+    text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;
+    transition:color .12s ease;
+  }
+  .inline-link:hover{color:var(--pine)}
+  .inline-link:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:3px}
+
   /* ---------- signature: the double alert (untouched — this stays THE moment) ---------- */
   .moment{
     margin:var(--space-7) 0 var(--space-2);
@@ -561,8 +570,8 @@
 
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
-  <h1>Krijg een seintje zodra je vader of moeder geld overmaakt naar een oplichter.</h1>
-  <p class="sub">Oplichters bellen ouderen op — en praten net zo lang tot het spaargeld is overgemaakt. Seintje waakt over de rekening van je ouders — alleen kijken, nooit aankomen — en waarschuwt jullie allebei zodra er iets ongebruikelijks gebeurt, zodat één telefoontje de oplichter stopt.</p>
+  <h1>Financiële veiligheid, voor jou en je dierbaren.</h1>
+  <p class="sub">Seintje waakt over jullie bankrekeningen. Probeert een oplichter toe te slaan of loopt er stilletjes een abonnement door? Dan krijg je op tijd een seintje — zodat je samen kunt ingrijpen. En twijfel je over een bericht of een website? <a class="inline-link" href="#scamcheck">Doe de ScamCheck</a>.</p>
   <a class="cta" href="#aanmelden" id="hero-cta">Zet mij op de wachtlijst</a>
   <p class="micro">Eerste 30 dagen gratis bij lancering — we beginnen met een kleine groep families.</p>
 
@@ -751,12 +760,12 @@
   </div>
 </section>
 
-<!-- ================= BERICHTENCHECK ================= -->
-<section class="wrap" id="berichtencheck">
+<!-- ================= SCAMCHECK ================= -->
+<section class="wrap" id="scamcheck">
   <div class="panel">
-    <span class="eyebrow">Twijfel je over een bericht?</span>
+    <span class="eyebrow">Twijfel je over een bericht of website?</span>
     <h2>Stuur het door. Wij kijken mee.</h2>
-    <p>Een sms van 'de bank'? Een appje over een pakketje dat je niet verwacht? Een mailtje dat nét echt lijkt? Stuur de tekst of een screenshot naar Seintje, en je hoort direct welke waarschuwingssignalen wij zien — en wat je het beste kunt doen. Ook je vader of moeder kan dit zelf, zo vaak als nodig. De berichtencheck antwoordt meteen — dat kan, omdat jij hem iets stuurt. Een seintje over de rekening komt binnen enkele uren; zo snel als de bank het ons laat zien.</p>
+    <p>Een sms van 'de bank'? Een link naar een webshop die nét echt lijkt? Een mailtje waar je over twijfelt? Stuur de tekst, de link of een screenshot naar Seintje, en je hoort direct welke waarschuwingssignalen wij zien — en wat je het beste kunt doen. Ook je vader of moeder kan dit zelf, zo vaak als nodig. De ScamCheck antwoordt meteen — dat kan, omdat jij hem iets stuurt. Een seintje over de rekening komt binnen enkele uren; zo snel als de bank het ons laat zien.</p>
     <p class="note">Eerlijk is eerlijk: Seintje zegt nooit 'dit is veilig'. Oplichters maken berichten die niet van echt te onderscheiden zijn — ook wij kunnen niet in het hoofd van de afzender kijken. Wat we wél doen: eerlijk zeggen wat ons opvalt, en bij twijfel altijd: bel eerst iemand die je vertrouwt.</p>
   </div>
 </section>
