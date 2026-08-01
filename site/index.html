@@ -346,6 +346,12 @@
   }
   .pattern-foot{font-size:.85rem;color:var(--ink-soft);margin-top:var(--space-3)}
 
+  /* ---------- quiet honesty note: same footnote rhythm as .sources ---------- */
+  .note{
+    margin-top:var(--card-pad);padding-top:var(--para-gap);
+    border-top:1px solid var(--line);font-size:.92rem;
+  }
+
   /* ---------- promise (existing box, now with card shadow) ---------- */
   .promise{border-left:4px solid var(--pine);
     background:var(--amber-soft);border-radius:var(--radius);
@@ -353,6 +359,7 @@
     box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
   .promise p strong{font-family:'Newsreader',serif;font-size:1.12rem;font-weight:600}
+  .promise + p{margin-top:var(--para-gap)}
 
   /* ---------- security / trust grid ---------- */
   .trust-grid{
@@ -706,6 +713,16 @@
 })();
 </script>
 
+<!-- ================= BERICHTENCHECK ================= -->
+<section class="wrap" id="berichtencheck">
+  <div class="panel">
+    <span class="eyebrow">Twijfel je over een bericht?</span>
+    <h2>Stuur het door. Wij kijken mee.</h2>
+    <p>Een sms van 'de bank'? Een appje over een pakketje dat je niet verwacht? Een mailtje dat nét echt lijkt? Stuur de tekst of een screenshot naar Seintje, en je hoort direct welke waarschuwingssignalen wij zien — en wat je het beste kunt doen. Ook je vader of moeder kan dit zelf, zo vaak als nodig.</p>
+    <p class="note">Eerlijk is eerlijk: Seintje zegt nooit 'dit is veilig'. Oplichters maken berichten die niet van echt te onderscheiden zijn — ook wij kunnen niet in het hoofd van de afzender kijken. Wat we wél doen: eerlijk zeggen wat ons opvalt, en bij twijfel altijd: bel eerst iemand die je vertrouwt.</p>
+  </div>
+</section>
+
 <!-- ================= EERLIJKE BELOFTE ================= -->
 <section class="wrap">
   <span class="eyebrow">Wat we wél en niet beloven</span>
@@ -714,6 +731,7 @@
   <div class="promise">
     <p><strong>Onze belofte: je hoeft niet elke dag mee te kijken. Dat doen wij. En als er iets niet klopt, weet je het op tijd om samen in te grijpen.</strong></p>
   </div>
+  <p>En gaat het tóch mis? Dan laat Seintje je precies zien wat je moet doen: de fraudedesk van de bank bellen, de rekening van de oplichter laten bevriezen, aangifte doen. Je staat er niet alleen voor.</p>
 </section>
 
 <!-- ================= WAARDIGHEID ================= -->
