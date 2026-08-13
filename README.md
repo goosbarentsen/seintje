@@ -16,8 +16,15 @@ We bouwen nog geen app, detectie-engine of bankkoppeling. Deze fase draait om he
 seintje/
 ├── README.md          — dit bestand
 ├── .gitignore
+├── docs/
+│   ├── ARCHITECTURE.md — de kaart: welke modules er zijn en hoe de data stroomt (begin hier)
+│   └── ENGINEERING.md  — hoe we bouwen; verplicht vóór elke bouwsessie
+├── stories/            — één bestand per functionaliteit (NNN-naam.md)
+├── sandbox/            — Node-verkenningstool voor de Enable Banking-sandbox
 └── site/               — de landingspagina, gepubliceerd via GitHub Pages
     └── index.html
 ```
+
+**Nieuw hier? Lees `docs/ARCHITECTURE.md`.** Die pagina is het instappunt; hij hoort in één dag te volstaan om te begrijpen wat er staat.
 
 De planningsdocumenten (businessplan, transactie-detectiespecificatie, DPIA, werkdocument & beslislog, interview- en wervingsmateriaal) staan niet in dit repo. Ze leven in een apart, privé, lokaal repo — `~/Developer/seintje-docs` — zodat ze nooit per ongeluk meegepusht kunnen worden naar GitHub Pages, dat wél publiek is.

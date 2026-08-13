@@ -29,5 +29,9 @@ build/
 /sandbox/output/
 
 # Vertrouwelijk extern materiaal (prijzen, contracten, decks) hoort in
-# ~/Developer/seintje-docs (prive), nooit in dit publieke repo - harde regel 2
-/docs/
+# ~/Developer/seintje-docs (prive), nooit in dit publieke repo - harde regel 2.
+# Uitzondering: de bouwdiscipline en de kaart zijn niet vertrouwelijk en horen
+# juist wel in git - zij verwijzen naar de specs, herhalen ze nooit.
+/docs/*
+!/docs/ENGINEERING.md
+!/docs/ARCHITECTURE.md
