@@ -37,7 +37,8 @@ Pre-revenue, founder solo next to a fulltime job, funded from own means. Site li
 - **Technical calibration before Gate 1 — three items:** synthetic dataset + backtest build (done), aggregate analysis on the founder's own export (done 2026-07-28), Enable Banking answers (open — call 29 July). Beyond those, the spec's own §7 still calls for a backtest on *real pilot-family* transaction data before go-live, once pilot families are onboarded.
 - **Gate 1 (target ~month 3):** market + tech validation green → BV incorporation, MVP build starts (hired fintech freelancer builds, founder is product owner; no cofounder before traction).
 - **Gate 2 (target ~month 6):** pilot norms met → paid launch, first paying customer.
-- **Do NOT build** production app code, backend, database, or notification systems before Gate 1 is explicitly passed by the founder. The `/sandbox` exploration tool is the only code allowed pre-gate.
+- **Gate 1 passed on its technical half (founder decision 2026-08-13).** The pre-gate build ban is lifted for one thing only: the vertical slice of story 001 — the founder's own account, one rule, shadow mode, signal to the founder's phone. The market half is not green (interviews paused, the ≥7/15-buyers criterion still unreplaced), and what the gate means for BV incorporation and hiring the fintech freelancer is deliberately left open. Reasoning logged in the werkdocument.
+- **The line that still holds: nobody's account but the founder's.** Nico and later pilot families are not released by that decision. They require the DPA sent and confirmed, the DPIA's [JURIST] items answered, and unrestricted mode at Enable Banking — which today technically prevents other users from connecting at all. Anything beyond the founder's own account in shadow mode is a new founder decision.
 
 ## How to work with the founder
 - Execute autonomously: copy, code, structure, research, fixes — do them, explain briefly what and why.
