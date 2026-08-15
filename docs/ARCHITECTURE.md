@@ -16,7 +16,10 @@ naar één rekening — die van de oprichter — met één regel, in schaduwmodu
 | `seintje-backtest/` | Apart, lokaal repo. Bezit de detectie: de engine, de synthetische dataset en de go/no-go-poort, én sinds story 001 de pilot-runner die de engine op echte data draait. |
 | ↳ `src/detection-engine.js` | De regels zelf. Eén plek. Alles wat detecteert, importeert dit bestand en schrijft niets na. |
 | ↳ `src/pilot/` + `pilot-runner.js` | De draaiende lijn: ophalen, omzetten, één regel, één signaal. Bevat geen regellogica — een test bewaakt dat. |
-| ↳ `src/replay-eigen-export.js` | Draait dezelfde regel offline over de 12-maandsexport van de oprichter. Alleen aantallen op het scherm. |
+| ↳ `src/kaart-kandidaten.js` | Voorgestelde regels voor kaartbetalingen. Nog niet in de spec, dus bewust buiten de engine — zo blijft zichtbaar wat de backtestpoort dekt en wat experiment is. |
+| ↳ `src/terugkerend.js` | Herkent lopende verplichtingen op ritme (wekelijks tot jaarlijks). Ontdekfunctie, geen alarmregel. |
+| ↳ `src/walk-forward.js` | Beoordeelt per dag tegen de historie daarvóór. Eén implementatie, omdat hier de stille fout zat. |
+| ↳ `src/replay-eigen-export.js`, `src/rapport-eigen-jaar.js` | Draaien de regels offline over een echte export. Alleen aantallen op het scherm; detail naar een bestand buiten elk repo. |
 | `seintje-docs/` | Apart, privé repo. Businessplan, detectiespecificatie, DPIA, werkdocument. Geen code — wel de bron van waarheid voor alles wat de code moet doen. |
 | `seintje/stories/` | Eén bestand per functionaliteit: wat, waarom, acceptatie, status, beslissingen. |
 
