@@ -78,7 +78,9 @@
   h1{font-size:clamp(2rem,6.5vw,3rem);margin-bottom:var(--heading-gap)}
   h2{font-size:clamp(1.45rem,4.5vw,1.9rem);margin-bottom:var(--heading-gap)}
   h3{font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:var(--heading-gap)}
-  p{color:var(--ink-soft);hyphens:auto;-webkit-hyphens:auto}
+  /* koppeltekens uit: afgebroken woorden lezen slecht en oogden rommelig op smalle schermen */
+  p,h1,h2,h3,h4,li,summary{hyphens:none;-webkit-hyphens:none}
+  p{color:var(--ink-soft)}
   strong{color:var(--ink)}
   a{color:inherit}
   .eyebrow{
@@ -216,12 +218,14 @@
   .alert.warn .badge{background:var(--amber);color:var(--ink)}
   .alert .who span{font-size:.8rem;font-weight:600;color:var(--ink)}
   .alert p{font-size:.93rem;color:var(--ink);line-height:1.45}
+  .alert p + p{margin-top:var(--space-3)}
   .thread{
     width:2px;height:26px;margin:0 auto;
     background:repeating-linear-gradient(to bottom,var(--pine) 0 4px,transparent 4px 8px);
     animation:rise .4s ease both;animation-delay:.35s;
   }
   .moment .foot{font-size:.85rem;text-align:center;margin-top:var(--para-gap);color:var(--ink-soft)}
+  .moment .foot .foot-line{display:block;margin-top:var(--space-2)}
   @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   @media (prefers-reduced-motion:reduce){
     .alert,.thread{animation:none}
@@ -274,6 +278,9 @@
     padding:var(--space-2) var(--space-3);line-height:1.3;
   }
 
+  .chip--hidden{display:inline-flex;align-items:center;gap:var(--space-2)}
+  .chip--hidden svg{width:16px;height:16px;flex:0 0 auto;color:var(--pine)}
+
   .stat-number{font-family:'Newsreader',serif;font-weight:600;color:var(--pine-deep)}
 
   /* ---------- sources: quiet footnote-style citations, not marketing ---------- */
@@ -316,21 +323,25 @@
   .pattern-wrap{margin-top:var(--space-7)}
   .pattern-heading{font-size:1.02rem;font-weight:600;color:var(--ink);margin-bottom:var(--para-gap)}
   .pattern-scroller{position:relative}
-  .pattern-scroller::before,.pattern-scroller::after{
-    content:"";position:absolute;top:0;bottom:var(--space-3);width:32px;z-index:2;pointer-events:none;
+  /* Alleen rechts vervagen: dat wijst naar wat er nog komt. De linker vervaging lag sinds de
+     kaarten met hun kop uitlijnen over de eerste kaart heen en maakte die tekst grauw. */
+  .pattern-scroller::after{
+    content:"";position:absolute;top:0;bottom:var(--space-3);right:0;width:32px;z-index:2;
+    pointer-events:none;background:linear-gradient(to left,var(--paper),transparent);
   }
-  .pattern-scroller::before{left:0;background:linear-gradient(to right,var(--paper),transparent)}
-  .pattern-scroller::after{right:0;background:linear-gradient(to left,var(--paper),transparent)}
   .pattern-carousel{
     display:flex;gap:var(--space-4);overflow-x:auto;scroll-snap-type:x mandatory;
-    padding:var(--space-1) max(var(--gutter), calc(50% - 110px)) var(--space-3);
-    scroll-padding-inline:max(var(--gutter), calc(50% - 110px));
+    /* Geen extra binnenmarge: de sectie heeft zijn gutter al, en de oude
+       max(gutter, 50% - 110px) duwde de kaarten op brede schermen ruim 400px naar
+       binnen terwijl de kop links bleef staan — dat was de scheve inspringing. */
+    padding:var(--space-1) 0 var(--space-3);
+    scroll-padding-inline:0;
     -webkit-overflow-scrolling:touch;scrollbar-width:none;
   }
   .pattern-carousel::-webkit-scrollbar{display:none}
   .pattern-carousel:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:8px}
   .pattern-card{
-    scroll-snap-align:center;flex:0 0 auto;width:220px;
+    scroll-snap-align:start;flex:0 0 auto;width:220px;
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
     padding:var(--space-4);box-shadow:0 3px 18px rgba(28,43,39,.05);
   }
@@ -427,6 +438,7 @@
   .signup h2{color:#fff}
   .signup p{color:#DCE9F0}
   .price{font-family:'Newsreader',serif;font-size:1.5rem;color:#fff;margin:var(--space-2) 0}
+  .signup-status{font-size:.9rem;border-left:3px solid #9CC8DE;padding-left:var(--space-3);margin-top:var(--para-gap)}
   form{margin-top:var(--card-gap);display:flex;flex-direction:column;gap:var(--space-3)}
   label{font-size:.92rem;font-weight:600;color:#F0F6F9}
   input[type=email],select{min-height:52px;
@@ -583,7 +595,10 @@
     <div class="alerts">
       <div class="alert warn">
         <div class="who"><span class="badge">!</span><span>Op vaders telefoon</span></div>
-        <p>Wij zien een overboeking die ongebruikelijk is voor u. Heeft iemand u gevraagd om geld over te maken — aan de telefoon of via een bericht? Verbreek het contact: <strong>een échte bankmedewerker doet dat nooit.</strong> En maak niets meer over voordat u iemand heeft gebeld die u vertrouwt.</p>
+        <p>Wij zien een overboeking die ongebruikelijk is voor u.</p>
+        <p>Heeft iemand u gevraagd om geld over te maken — aan de telefoon of via een bericht?</p>
+        <p>Verbreek het contact: <strong>een échte bankmedewerker doet dat nooit.</strong></p>
+        <p>En maak niets meer over voordat u iemand heeft gebeld die u vertrouwt.</p>
       </div>
       <div class="thread" aria-hidden="true"></div>
       <div class="alert">
@@ -591,7 +606,7 @@
         <p>We zien een ongebruikelijke overboeking bij je vader. <strong>Bel hem nu even</strong> — jouw stem is genoeg.</p>
       </div>
     </div>
-    <p class="foot">Oplichters houden hun slachtoffer aan de lijn, onder druk, alleen. Eén telefoontje van jou doorbreekt dat.</p>
+    <p class="foot">Oplichters houden hun slachtoffer aan de lijn, onder druk, alleen.<span class="foot-line">Eén telefoontje van jou doorbreekt dat.</span></p>
   </div>
 </div>
 
@@ -807,9 +822,9 @@
     <p>Seintje is er niet om je dierbaren te controleren. Ze zien zelf precies wat de app doet, geven zelf toestemming, en kunnen die elk moment intrekken. Ze bepalen ook zelf wie hun seintjes krijgt: jou, of net zo goed je broer, je zus of een goede buur. Voor jouw eigen rekening geldt precies hetzelfde.</p>
     <p><strong>Dit zie jij nooit</strong> — je krijgt alleen een alarm als er iets niet klopt:</p>
     <div class="chip-row">
-      <span class="chip">Geen saldo</span>
-      <span class="chip">Geen uitgaven</span>
-      <span class="chip">Geen transacties</span>
+      <span class="chip chip--hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/><path d="M4 20 20 4"/></svg>Saldo</span>
+      <span class="chip chip--hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/><path d="M4 20 20 4"/></svg>Uitgaven</span>
+      <span class="chip chip--hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/><path d="M4 20 20 4"/></svg>Transacties</span>
     </div>
     <p>Je dierbare houdt de eigen privacy. Jij krijgt je gemoedsrust.</p>
   </div>
@@ -919,6 +934,7 @@
     <p class="price">€9,95 per maand — eerste 30 dagen gratis</p>
     <p>Eén abonnement beschermt twee rekeningen: die van jou en die van iemand om wie je geeft. Jullie bepalen allebei zelf wie een seintje krijgt als er iets misgaat. Opzegbaar per maand, ook tijdens de proefperiode.</p>
     <p style="font-size:.9rem">Ter vergelijking: het gemiddelde slachtoffer van bankhelpdeskfraude verliest duizenden euro's. Vaak het spaargeld van een leven.</p>
+    <p class="signup-status">Seintje is nog in ontwikkeling. Je meldt je hier aan voor de wachtlijst — bij de lancering nodigen we je uit, je zit dan nergens aan vast.</p>
 
     <form id="waitlist-form" action="https://formspree.io/f/xvzekdrd" method="POST">
       <input type="hidden" name="_next" value="https://seintje-app.nl/#bedankt">
