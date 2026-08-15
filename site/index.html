@@ -265,6 +265,7 @@
   }
 
   /* short parallel fragments rendered as chips instead of run-on prose */
+  .chip-intro{margin-top:var(--para-gap);margin-bottom:calc(var(--para-gap) * -1 + var(--space-2))}
   .chip-row{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--para-gap)}
   .chip-row + p{margin-top:var(--para-gap)}
   .chip{
@@ -572,7 +573,7 @@
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
   <h1>Financiële veiligheid, voor jou en je dierbaren.</h1>
-  <p class="sub">Seintje waakt over jullie bankrekeningen. Probeert een oplichter toe te slaan of loopt er stilletjes een abonnement door? Dan krijg je op tijd een seintje — zodat je samen kunt ingrijpen. En twijfel je over een bericht of een website? <a class="inline-link" href="#scamcheck">Doe de ScamCheck</a>.</p>
+  <p class="sub">Seintje waakt over jullie bankrekeningen. Probeert een oplichter toe te slaan of loopt er stilletjes een abonnement door? Dan krijg je op tijd een seintje — zodat je samen kunt ingrijpen. En twijfel je over een sms, een appje of een website? <a class="inline-link" href="#scamcheck">Doe de ScamCheck</a>.</p>
   <a class="cta" href="#aanmelden" id="hero-cta">Zet mij op de wachtlijst</a>
   <p class="micro">Eerste 30 dagen gratis bij lancering — we beginnen met een kleine groep families.</p>
 
@@ -600,6 +601,7 @@
     <span class="eyebrow">Waarom dit nodig is</span>
     <h2>Het overkomt de meest oplettende mensen. Ook jouw dierbaren.</h2>
     <p>Vorig jaar maakten oplichters <span class="stat-number">€25,8 miljoen</span> buit met nep-telefoontjes "van de bank". De trucs worden met AI zó overtuigend dat zelfs oplettende mensen erin trappen.</p>
+    <p class="chip-intro">Zo klinken de trucs van dit moment:</p>
     <div class="chip-row">
       <span class="chip">Een echte kloon van de bankstem</span>
       <span class="chip">Jouw gegevens uit een datalek</span>
@@ -636,7 +638,7 @@
         <span class="step-num" aria-hidden="true">1</span>
       </div>
       <h3>Koppel samen jullie rekeningen</h3>
-      <p>Jij sluit het abonnement af en koppelt je eigen rekening. Samen met degene om wie je geeft koppel je die van hem of haar — allebei via de beveiligde koppeling van de bank zelf, dezelfde techniek die budget-apps al jaren gebruiken. De app kan meekijken, maar kan <strong>nooit geld overmaken</strong>. Niemand kan dat via Seintje. Ook wij niet.</p>
+      <p>Jij sluit het abonnement af en koppelt je eigen rekening. Samen met degene om wie je geeft koppel je die van hem of haar — allebei via de beveiligde koppeling van de bank zelf, dezelfde techniek die budget-apps al jaren gebruiken. De app kan meekijken, maar kan <strong>nooit geld overmaken</strong>. Niemand kan dat via Seintje. Ook wij niet. Koppelen betekent niet dat jullie elkaars rekening kunnen zien — iedereen houdt zijn eigen privacy.</p>
     </div>
     <div class="step-card">
       <div class="step-icon">
@@ -711,7 +713,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
       </button>
     </div>
-    <p class="pattern-foot">Dit zijn voorbeelden — er zijn er meer, en we verfijnen ze voortdurend.</p>
+    <p class="pattern-foot">Dit zijn voorbeelden; er zijn er meer. Oplichters veranderen hun aanpak, dus wij passen de herkenningsregels aan zodra we een nieuw patroon zien.</p>
   </div>
 </section>
 
@@ -790,9 +792,9 @@
 <section class="wrap">
   <span class="eyebrow">Wat we wél en niet beloven</span>
   <h2>De eerlijke belofte.</h2>
-  <p>Geen enkele app houdt elke oplichter tegen — wie dat belooft, liegt. Oplichting is bijna nooit één overboeking, maar een reeks: eerst een klein testbedrag, dan de grote klappen, vaak dagenlang. Daar zit 80–90% van de schade in.</p>
+  <p>Geen enkele app houdt alle oplichters tegen — beloftes van 100% veiligheid zijn zelf een waarschuwingssignaal. Oplichting is zelden één overboeking. Meestal is het een reeks: eerst een klein testbedrag, dan de grote klappen — vaak dagenlang. Juist die vervolgstappen kan Seintje helpen stoppen.</p>
   <div class="promise">
-    <p><strong>Onze belofte: je hoeft niet elke dag mee te kijken. Dat doen wij. En als er iets niet klopt, weet je het op tijd om samen in te grijpen.</strong></p>
+    <p><strong>Onze belofte: je hoeft niet elke dag mee te kijken. Dat doen wij. En klopt er iets niet, dan krijg je een seintje — zodat jullie kunnen ingrijpen voordat het erger wordt.</strong></p>
   </div>
   <p>En gaat het tóch mis? Dan laat Seintje je precies zien wat je moet doen: de fraudedesk van de bank bellen, de rekening van de oplichter laten bevriezen, aangifte doen. Je staat er niet alleen voor.</p>
 </section>
@@ -880,7 +882,7 @@
         </svg>
       </div>
       <h3>Weinig data, weinig risico</h3>
-      <p>Eerlijk is eerlijk: geen enkel bedrijf kan een lek 100% uitsluiten — wie dat belooft, liegt. Daarom is onze belangrijkste beveiliging dat we zo min mogelijk bewaren. Inloggegevens van de bank zien we nooit (inloggen gebeurt bij de bank zelf), we bewaren geen doorlopend archief van transacties, en wat we wél bewaren staat versleuteld op servers in de EU. Als er weinig in de kluis ligt, valt er weinig te stelen.</p>
+      <p>Eerlijk is eerlijk: geen enkel bedrijf kan een lek 100% uitsluiten — beloftes van 100% veiligheid zijn zelf een waarschuwingssignaal. Daarom is onze belangrijkste beveiliging dat we zo min mogelijk bewaren. Inloggegevens van de bank zien we nooit (inloggen gebeurt bij de bank zelf), we bewaren geen doorlopend archief van transacties, en wat we wél bewaren staat versleuteld op servers in de EU. Als er weinig in de kluis ligt, valt er weinig te stelen.</p>
     </div>
   </div>
 </section>
