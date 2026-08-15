@@ -4,8 +4,8 @@ Het instappunt voor wie Seintje niet kent. Eén pagina, altijd waar. Past hij ni
 pagina, dan vereenvoudigen we het systeem — niet de kaart (zie `ENGINEERING.md` §1).
 
 **Stand: 2026-08-15.** Gate 1 is gepasseerd op de technische helft. Naast de landingspagina en
-de validatietools staat er nu één stuk draaiende code: de pilot-runner van story 001. Die kijkt
-naar één rekening — die van de oprichter — met één regel, in schaduwmodus.
+de validatietools staat er de pilot-runner van story 001 (één rekening, één regel, schaduwmodus)
+en het beschrijvende rapport van story 003, dat offline over een echte export draait.
 
 ## Modules
 
@@ -19,7 +19,8 @@ naar één rekening — die van de oprichter — met één regel, in schaduwmodu
 | ↳ `src/kaart-kandidaten.js` | Voorgestelde regels voor kaartbetalingen. Nog niet in de spec, dus bewust buiten de engine — zo blijft zichtbaar wat de backtestpoort dekt en wat experiment is. |
 | ↳ `src/terugkerend.js` | Herkent lopende verplichtingen op ritme (wekelijks tot jaarlijks). Ontdekfunctie, geen alarmregel. |
 | ↳ `src/walk-forward.js` | Beoordeelt per dag tegen de historie daarvóór. Eén implementatie, omdat hier de stille fout zat. |
-| ↳ `src/replay-eigen-export.js`, `src/rapport-eigen-jaar.js` | Draaien de regels offline over een echte export. Alleen aantallen op het scherm; detail naar een bestand buiten elk repo. |
+| ↳ `src/beschrijving.js` | Beschrijft wat een rekening doet: per maand, jaar op jaar, vast versus vrij, inkomstenritme. Geen oordeel, alleen beeld. |
+| ↳ `src/replay-eigen-export.js`, `src/rapport.js` | Draaien beschrijving en regels offline over een echte export. Alleen aantallen op het scherm; namen en detail naar een bestand buiten elk repo. |
 | `seintje-docs/` | Apart, privé repo. Businessplan, detectiespecificatie, DPIA, werkdocument. Geen code — wel de bron van waarheid voor alles wat de code moet doen. |
 | `seintje/stories/` | Eén bestand per functionaliteit: wat, waarom, acceptatie, status, beslissingen. |
 
