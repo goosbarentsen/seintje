@@ -3,8 +3,9 @@
 Het instappunt voor wie Seintje niet kent. Eén pagina, altijd waar. Past hij niet meer op één
 pagina, dan vereenvoudigen we het systeem — niet de kaart (zie `ENGINEERING.md` §1).
 
-**Stand: 2026-08-13.** Er is nog geen product. Wat er staat is een landingspagina plus twee
-validatietools. Productcode begint pas na Gate 1 (CLAUDE.md).
+**Stand: 2026-08-15.** Gate 1 is gepasseerd op de technische helft. Naast de landingspagina en
+de validatietools staat er nu één stuk draaiende code: de pilot-runner van story 001. Die kijkt
+naar één rekening — die van de oprichter — met één regel, in schaduwmodus.
 
 ## Modules
 
@@ -12,7 +13,10 @@ validatietools. Productcode begint pas na Gate 1 (CLAUDE.md).
 | --- | --- |
 | `seintje/site/` | De landingspagina op seintje-app.nl: één statisch HTML-bestand plus een privacypagina, gepubliceerd via GitHub Pages. Verzamelt wachtlijstaanmeldingen. |
 | `seintje/sandbox/` | Node-verkenningstool voor de Enable Banking-sandbox: banken opvragen, een rekening koppelen, transacties ophalen, en geaggregeerd doorrekenen (`aggregate.js`). |
-| `seintje-backtest/` | Apart, lokaal repo. Synthetische dataset + implementatie van de detectieregels + go/no-go-rapport. De permanente regressiepoort voor elke regelwijziging. |
+| `seintje-backtest/` | Apart, lokaal repo. Bezit de detectie: de engine, de synthetische dataset en de go/no-go-poort, én sinds story 001 de pilot-runner die de engine op echte data draait. |
+| ↳ `src/detection-engine.js` | De regels zelf. Eén plek. Alles wat detecteert, importeert dit bestand en schrijft niets na. |
+| ↳ `src/pilot/` + `pilot-runner.js` | De draaiende lijn: ophalen, omzetten, één regel, één signaal. Bevat geen regellogica — een test bewaakt dat. |
+| ↳ `src/replay-eigen-export.js` | Draait dezelfde regel offline over de 12-maandsexport van de oprichter. Alleen aantallen op het scherm. |
 | `seintje-docs/` | Apart, privé repo. Businessplan, detectiespecificatie, DPIA, werkdocument. Geen code — wel de bron van waarheid voor alles wat de code moet doen. |
 | `seintje/stories/` | Eén bestand per functionaliteit: wat, waarom, acceptatie, status, beslissingen. |
 
@@ -33,10 +37,22 @@ Validatie (reproduceerbaar, elke regelwijziging)
   detectiespecificatie  →  generate-data.js  →  data/*.json
                                                      ↓
                              detection-engine.js  →  backtest.js  →  backtest-report.json → rapport
+
+De verticale lijn (story 001, 4× per etmaal)
+  bank  →  Enable Banking API  →  eb-client (venster ophalen)
+                                        ↓
+                              map-enablebanking.js  →  transacties in geheugen
+                                        ↓
+                          state.js: wat is nieuw?  (vingerafdrukken, geen bedragen)
+                                        ↓
+             detection-engine.js: baseline uit de historie vóór die dag, dan R1
+                                        ↓
+                    schaduwlog op de machine  +  ntfy-bericht zonder gegevens
 ```
 
-De brug tussen die twee — echte transacties door de detectie-engine — is precies de verticale
-plak die als eerste gebouwd wordt (`ENGINEERING.md` §7), en bestaat dus nog niet.
+De runner bewaart geen transactieoverzicht. Hij haalt het leervenster elke run opnieuw op en
+rekent de baseline in geheugen — dat scheelt een bestand vol IBAN's, en het is de reden dat
+"geen ruwe data op schijf" geen belofte is maar een eigenschap van de opzet.
 
 ## Belangrijke keuzes
 
@@ -50,6 +66,14 @@ plak die als eerste gebouwd wordt (`ENGINEERING.md` §7), en bestaat dus nog nie
   backtest geen bewijs.
 - **Detectie is uitlegbare regels, geen black-box AI in v1.** Een alarm dat we niet kunnen
   uitleggen, kunnen we niet verantwoorden tegenover een familie of een toezichthouder.
+- **Wat detecteert, importeert de engine — het schrijft nooit een regel na.** Zodra een tweede
+  implementatie bestaat, bewaakt de backtest niet meer wat er in productie draait.
+- **De baseline komt altijd uit de historie vóór de dag die je beoordeelt.** Reken je hem over
+  het hele venster, dan is een nieuw IBAN al bekend op het moment dat je het toetst en vuurt de
+  regel nooit — stil kapot in plaats van zichtbaar kapot.
+- **Wat op schijf blijft, is onomkeerbaar gemaakt.** Al beoordeelde transacties leven als HMAC
+  met een lokaal zout, niet als datum-plus-bedrag. De uitzondering is de schaduwlog, die alleen
+  de treffers bevat — zonder die uitzondering valt er niets te beoordelen.
 - **Dunne abstractielaag tussen detectie-engine en aggregator.** Enable Banking is de keuze,
   Yapily is plan B; die wissel mag de detectie niet raken.
 - **Geen permanent transactiearchief.** Dataminimalisatie is architectuur, geen belofte:
