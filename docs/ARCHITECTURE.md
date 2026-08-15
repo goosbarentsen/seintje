@@ -47,7 +47,7 @@ De verticale lijn (story 001, 4× per etmaal)
                                         ↓
                           state.js: wat is nieuw?  (vingerafdrukken, geen bedragen)
                                         ↓
-             detection-engine.js: baseline uit de historie vóór die dag, dan R1
+        detection-engine.js: baseline uit de historie vóór die dag, dan de ene regel
                                         ↓
                     schaduwlog op de machine  +  ntfy-bericht zonder gegevens
 ```
